@@ -21,6 +21,7 @@
       "web": false,
       "ui": false,
       "icon": "icon.svg",
+      "updatedAt": "2026-10-27T01:00:04+01:00",
       "locales": {
         "en": {
           "name": "Home Assistant bridge",
@@ -104,6 +105,7 @@
       "requires": [
         "markdown-editor"
       ],
+      "updatedAt": "2026-10-27T01:00:04+01:00",
       "locales": {
         "en": {
           "name": "Notes",
@@ -196,6 +198,7 @@
       "web": true,
       "ui": false,
       "icon": "icon.svg",
+      "updatedAt": "2026-10-27T01:00:04+01:00",
       "locales": {
         "en": {
           "name": "Recordr",
@@ -311,6 +314,7 @@
       "web": false,
       "ui": false,
       "icon": "icon.svg",
+      "updatedAt": "2026-10-27T01:00:04+01:00",
       "locales": {
         "en": {
           "name": "Telegram bridge",
@@ -403,6 +407,7 @@
       "web": true,
       "ui": false,
       "icon": "icon.svg",
+      "updatedAt": "2026-10-27T01:00:04+01:00",
       "locales": {
         "en": {
           "name": "WeTTY",
@@ -479,6 +484,7 @@
       "description": "Use for every answer longer than a few lines, and whenever the user asks to shorten, clarify, restructure or \"make it readable\". Rules for answers that are read once on a screen or a phone: the point first, short sentences, lists for parallel items, no padding.",
       "author": "Allkin",
       "category": "writing",
+      "updatedAt": "2026-10-27T01:00:04+01:00",
       "locales": {
         "en": {
           "name": "Clear answers",
@@ -537,6 +543,7 @@
       "description": "Use when the user asks to review, check, audit or critique code, a diff, a pull request or a script, or asks \"is this correct / safe / good\". Produces findings ranked by severity, each with the line and a concrete failure case.",
       "author": "Allkin",
       "category": "code",
+      "updatedAt": "2026-10-27T01:00:04+01:00",
       "locales": {
         "en": {
           "name": "Code review",
@@ -595,6 +602,7 @@
       "description": "Use when the user asks to write, reply to, rephrase or soften an e-mail, a letter or a message to someone — a client, a supplier, a colleague, an administration. Produces a ready-to-send draft with subject line, in the right register.",
       "author": "Allkin",
       "category": "communication",
+      "updatedAt": "2026-10-27T01:00:04+01:00",
       "locales": {
         "en": {
           "name": "E-mail drafting",
@@ -653,6 +661,7 @@
       "description": "Use when something is broken or slow on a machine or a service — \"it does not work\", \"the site is down\", \"the disk is full\", an error in a log — and the user wants it diagnosed, fixed or written up. Drives a step-by-step diagnosis and produces an incident report.",
       "author": "Allkin",
       "category": "operations",
+      "updatedAt": "2026-10-27T01:00:04+01:00",
       "locales": {
         "en": {
           "name": "Incident report",
@@ -711,6 +720,7 @@
       "description": "Use when the user wants something done later, again and again, or whenever something happens on the machine — \"every morning\", \"remind me tomorrow\", \"each Monday\", \"warn me when a sign-in fails\", \"when an agent fails, look into it\", \"after an update\". Creates, reviews and deletes Allkin's actions, at a time or on an event of the event log.",
       "author": "Allkin",
       "category": "operations",
+      "updatedAt": "2026-10-27T01:00:04+01:00",
       "locales": {
         "en": {
           "name": "Manage actions",
@@ -769,6 +779,7 @@
       "description": "Use when the answer compares several items along the same criteria, lists options with their properties, or when the user asks for a table. Produces a Markdown table that reads well in Allkin's conversation.",
       "author": "Allkin",
       "category": "writing",
+      "updatedAt": "2026-10-27T01:00:04+01:00",
       "locales": {
         "en": {
           "name": "Markdown tables",
@@ -827,6 +838,7 @@
       "description": "Use when the user hands over a transcript, a recording's text or rough notes of a meeting and wants minutes, a summary, the decisions or the action items. Produces structured minutes with owners and deadlines.",
       "author": "Allkin",
       "category": "organisation",
+      "updatedAt": "2026-10-27T01:00:04+01:00",
       "locales": {
         "en": {
           "name": "Meeting notes",
@@ -885,6 +897,7 @@
       "description": "Use when the user states a goal, a project or a piece of work to organise and wants a plan, milestones, a task list, a schedule or a risk review. Produces a plan file that can be followed and updated.",
       "author": "Allkin",
       "category": "organisation",
+      "updatedAt": "2026-10-27T01:00:04+01:00",
       "locales": {
         "en": {
           "name": "Project plan",
@@ -943,6 +956,7 @@
       "description": "Use when the user asks to look something up, compare products or options, check a fact, find out \"what is the state of\", or wants a summary of what is known on a topic. Needs web access. Produces a short brief with sources, dated.",
       "author": "Allkin",
       "category": "analysis",
+      "updatedAt": "2026-10-27T01:00:04+01:00",
       "locales": {
         "en": {
           "name": "Research brief",

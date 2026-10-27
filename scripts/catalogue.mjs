@@ -29,6 +29,7 @@
  * No dependency.
  */
 import { createHash, createPrivateKey, createPublicKey, sign, verify } from "node:crypto";
+import { execFileSync } from "node:child_process";
 import { homedir } from "node:os";
 import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, sep } from "node:path";
@@ -68,6 +69,19 @@ const KNOWN_PERMISSIONS = new Set(["network", "filesystem", "exec", "root", "age
 const IGNORED = new Set(["node_modules", ".git", ".DS_Store"]);
 const MAX_FILES = 500;
 const MAX_FILE_BYTES = 20 * 1024 * 1024;
+
+/** When the entry last changed: the date of the last commit that touched its
+ *  folder (what the Exchange page shows as "updated", and sorts the latest
+ *  by). Absent for a folder not committed yet, or outside git. */
+function updatedAt(dir) {
+  try {
+    const out = execFileSync("git", ["log", "-1", "--format=%cI", "--", dir], { cwd: ROOT, encoding: "utf-8", stdio: ["ignore", "pipe", "ignore"] }).trim();
+    return out || undefined;
+  } catch {
+    return undefined;
+  }
+}
+const stamp = (dir) => (updatedAt(dir) ? { updatedAt: updatedAt(dir) } : {});
 
 const errors = [];
 const warnings = [];
@@ -152,6 +166,7 @@ function readPlugin(id) {
     ...(m.agent ? { agent: { name: m.agent.name } } : {}),
     ...(icon ? { icon } : {}),
     ...(Array.isArray(m.requires) && m.requires.length ? { requires: m.requires } : {}),
+    ...stamp(dir),
     // Translations of the texts above (name, description, permission reasons):
     // the gallery shows them before the plugin is installed.
     ...(m.locales && typeof m.locales === "object" ? { locales: catalogueLocales(m.locales) } : {}),
@@ -294,6 +309,7 @@ function readSkill(id) {
     ...(m.homepage ? { homepage: m.homepage } : {}),
     ...(icon ? { icon } : {}),
     ...(SKILL_CATEGORIES.has(m.category) ? { category: m.category } : {}),
+    ...stamp(dir),
     ...(Object.keys(locales).length ? { locales } : {}),
     files,
   };
@@ -350,6 +366,7 @@ function readAgent(id) {
     ...(m.author ? { author: m.author } : {}),
     ...(typeof m.job === "string" ? { job: m.job } : {}),
     ...(icon ? { icon } : {}),
+    ...stamp(dir),
     ...(m.locales && typeof m.locales === "object" ? { locales: catalogueLocales(m.locales) } : {}),
     files,
   };
