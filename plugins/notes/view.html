@@ -1,0 +1,120 @@
+<template data-slot="views">
+  <!-- Notes: one column at the left — the pinned notes, the tree of folders
+       with their notes, the bin — and the note at the right. The column folds
+       (the button of the bar) and its width is dragged (the handle). On a
+       phone one part at a time (data-pane="column" | "note"), the back button
+       of the bar going to the column. Icons are filled in by notes.js from
+       data-nt-icon. -->
+  <div class="nt-view hidden" id="nt-view" data-pane="column">
+    <header class="page-bar nt-head">
+      <span class="page-bar-icon" data-page-icon="notes" aria-hidden="true"></span>
+      <button type="button" class="nt-back" id="nt-back" data-nt-icon="caret-left" data-i18n-title="plugin.notes.back" data-i18n-aria-label="plugin.notes.back"></button>
+      <button type="button" class="nt-fold" id="nt-fold" data-nt-icon="sidebar-simple" data-i18n-title="plugin.notes.column.fold" data-i18n-aria-label="plugin.notes.column.fold" aria-pressed="false"></button>
+      <nav class="nt-crumbs" id="nt-crumbs" data-i18n-aria-label="plugin.notes.where"></nav>
+      <span class="page-bar-meta nt-state" id="nt-state" role="status"></span>
+      <label class="nt-search">
+        <span data-nt-icon="magnifying-glass" aria-hidden="true"></span>
+        <input type="search" id="nt-search" autocomplete="off" spellcheck="false" data-i18n-placeholder="plugin.notes.search.placeholder" data-i18n-aria-label="plugin.notes.search.placeholder" />
+      </label>
+      <div class="page-bar-actions">
+        <button type="button" id="nt-empty-trash" class="nt-empty-trash hidden" data-nt-icon="trash" data-nt-label="plugin.notes.trash.empty"></button>
+        <button type="button" id="nt-ask" data-nt-icon="chat-circle-text" data-nt-label="plugin.notes.ask" data-i18n-title="plugin.notes.ask.title"></button>
+        <button type="button" id="nt-note-menu" data-nt-icon="dots-three" data-i18n-title="plugin.notes.note.actions" data-i18n-aria-label="plugin.notes.note.actions"></button>
+        <button type="button" class="page-bar-primary" id="nt-new-note" data-nt-icon="plus" data-nt-label="plugin.notes.note.new" data-i18n-title="plugin.notes.note.newTitle"></button>
+      </div>
+    </header>
+
+    <div class="nt-body">
+      <!-- The column: the pinned notes, the tree, the bin; the search results
+           take its place while a search is typed. -->
+      <nav class="nt-col" id="nt-col" data-i18n-aria-label="plugin.notes.column.label"></nav>
+      <div class="nt-handle" id="nt-handle" role="separator" aria-orientation="vertical" data-i18n-title="plugin.notes.column.resize"></div>
+
+      <!-- The note: its title, the toolbar of the Markdown editor, the document. -->
+      <section class="nt-note" id="nt-note">
+        <div class="nt-note-empty" id="nt-note-empty">
+          <span data-nt-icon="note-blank" aria-hidden="true"></span>
+          <p data-i18n="plugin.notes.note.none"></p>
+        </div>
+        <div class="nt-note-body hidden" id="nt-note-body">
+          <input type="text" class="nt-title" id="nt-title" maxlength="120" autocomplete="off" data-i18n-placeholder="plugin.notes.title.placeholder" data-i18n-aria-label="plugin.notes.title.placeholder" />
+          <div class="nt-toolbar" id="nt-toolbar"></div>
+          <div class="nt-doc" id="nt-doc"></div>
+          <footer class="nt-foot" id="nt-foot"></footer>
+        </div>
+        <!-- The bin: what was deleted, to restore or to erase. -->
+        <div class="nt-trash hidden" id="nt-trash" role="list"></div>
+      </section>
+
+      <!-- The Markdown editor is not there (not installed, or its right not granted). -->
+      <div class="nt-missing hidden" id="nt-missing" role="status">
+        <span data-nt-icon="warning" aria-hidden="true"></span>
+        <p class="nt-missing-title" data-i18n="plugin.notes.missing.title"></p>
+        <p class="nt-missing-text" data-i18n="plugin.notes.missing.text"></p>
+        <button type="button" id="nt-missing-open" data-nt-label="plugin.notes.missing.open"></button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template data-slot="body">
+  <!-- The menu of a note or of a folder (right click, long press, ⋯). -->
+  <div class="nt-menu hidden" id="nt-menu" role="menu"></div>
+
+  <!-- "Move to…": the folders, one to pick ("Modals: one window"). -->
+  <div class="modal-backdrop nt-backdrop hidden" id="nt-move" role="dialog" aria-modal="true" aria-labelledby="nt-move-title">
+    <div class="modal nt-move">
+      <div class="modal-head">
+        <h2 class="modal-title" id="nt-move-title"></h2>
+        <button type="button" class="secondary modal-close" data-nt-icon="x" data-i18n-title="plugin.notes.close" data-i18n-aria-label="plugin.notes.close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="nt-pick" id="nt-move-list"></div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="secondary modal-cancel" data-i18n="plugin.notes.cancel"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- "Ask an agent": the agent, what to send, the request. -->
+  <div class="modal-backdrop nt-backdrop hidden" id="nt-ask-modal" role="dialog" aria-modal="true" aria-labelledby="nt-ask-title">
+    <form class="modal modal-wide nt-ask" id="nt-ask-form" novalidate>
+      <div class="modal-head">
+        <h2 class="modal-title" id="nt-ask-title" data-i18n="plugin.notes.ask.title"></h2>
+        <span class="modal-head-meta" id="nt-ask-note"></span>
+        <button type="button" class="secondary modal-close" data-nt-icon="x" data-i18n-title="plugin.notes.close" data-i18n-aria-label="plugin.notes.close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="option-row">
+          <div class="option-label">
+            <span class="option-title" data-i18n="plugin.notes.ask.agent"></span>
+            <span class="option-note" data-i18n="plugin.notes.ask.agentNote"></span>
+          </div>
+          <div class="option-action"><select id="nt-ask-agent" data-i18n-aria-label="plugin.notes.ask.agent"></select></div>
+        </div>
+        <div class="option-row">
+          <div class="option-label">
+            <span class="option-title" data-i18n="plugin.notes.ask.what"></span>
+            <span class="option-note" id="nt-ask-what-note" data-i18n="plugin.notes.ask.whatNote"></span>
+          </div>
+          <div class="option-action">
+            <div class="seg-switch" role="group" id="nt-ask-scope">
+              <button type="button" class="seg-switch-btn active" data-scope="note" data-i18n="plugin.notes.ask.note"></button>
+              <button type="button" class="seg-switch-btn" data-scope="selection" data-i18n="plugin.notes.ask.selection"></button>
+            </div>
+          </div>
+        </div>
+        <label class="nt-field">
+          <span class="nt-field-title" data-i18n="plugin.notes.ask.prompt"></span>
+          <textarea id="nt-ask-prompt" rows="4" maxlength="4000"></textarea>
+        </label>
+        <p class="nt-attach" id="nt-ask-attach"></p>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="secondary modal-cancel" data-i18n="plugin.notes.cancel"></button>
+        <button type="submit" id="nt-ask-send" data-nt-icon="paper-plane-tilt" data-nt-label="plugin.notes.ask.send"></button>
+      </div>
+    </form>
+  </div>
+</template>

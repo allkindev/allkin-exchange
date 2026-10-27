@@ -1,0 +1,999 @@
+{
+  "schemaVersion": 1,
+  "plugins": [
+    {
+      "id": "home-assistant-bridge",
+      "name": "Pont Home Assistant",
+      "version": "1.0.4",
+      "description": "Vos agents réagissent à la maison : un événement Home Assistant (une porte qui s'ouvre, un capteur, un bouton) réveille l'agent de votre choix avec le message que vous avez écrit, et sa réponse revient en notification dans Home Assistant.",
+      "author": "Allkin",
+      "permissions": [
+        {
+          "id": "network",
+          "reason": "Reste connecté au websocket de Home Assistant pour recevoir ses événements, et y renvoie les réponses des agents en notification."
+        },
+        {
+          "id": "agents",
+          "reason": "Réveille l'agent désigné par chaque règle par la socket d'Allkin, et lui transmet le message de la règle."
+        }
+      ],
+      "service": true,
+      "web": false,
+      "ui": false,
+      "icon": "icon.svg",
+      "locales": {
+        "en": {
+          "name": "Home Assistant bridge",
+          "description": "Your agents react to the house: a Home Assistant event (a door opening, a sensor, a button) wakes the agent of your choice with the message you wrote, and its answer comes back as a notification in Home Assistant.",
+          "permissions": {
+            "network": "Stays connected to Home Assistant's websocket to receive its events, and sends the agents' answers back as notifications.",
+            "agents": "Wakes the agent named by each rule through Allkin's socket, and passes it the rule's message."
+          }
+        },
+        "es": {
+          "name": "Puente Home Assistant",
+          "description": "Tus agentes reaccionan a la casa: un evento de Home Assistant (una puerta que se abre, un sensor, un botón) despierta al agente que elijas con el mensaje que escribiste, y su respuesta vuelve como notificación en Home Assistant.",
+          "permissions": {
+            "network": "Permanece conectado al websocket de Home Assistant para recibir sus eventos, y devuelve las respuestas de los agentes como notificaciones.",
+            "agents": "Despierta al agente indicado por cada regla a través del socket de Allkin, y le pasa el mensaje de la regla."
+          }
+        },
+        "de": {
+          "name": "Home-Assistant-Brücke",
+          "description": "Deine Agenten reagieren auf das Haus: Ein Home-Assistant-Ereignis (eine Tür geht auf, ein Sensor, ein Taster) weckt den gewählten Agenten mit der Nachricht, die du geschrieben hast, und seine Antwort kommt als Benachrichtigung in Home Assistant zurück.",
+          "permissions": {
+            "network": "Bleibt mit dem Websocket von Home Assistant verbunden, um seine Ereignisse zu empfangen, und schickt die Antworten der Agenten als Benachrichtigungen zurück.",
+            "agents": "Weckt den in jeder Regel genannten Agenten über die Socket von Allkin und übergibt ihm die Nachricht der Regel."
+          }
+        }
+      },
+      "files": [
+        {
+          "path": "README-DE.md",
+          "size": 3029,
+          "sha256": "9ed7d6a91b7c0e97909fb9bf2b6c5dff2f1151abe72d869c0b0244fe1ff64de3"
+        },
+        {
+          "path": "README-EN.md",
+          "size": 2731,
+          "sha256": "fc05a16300fb102ac30f78f47cb997cf47c97ee839e5362f6f3414dab5b96dbd"
+        },
+        {
+          "path": "README-ES.md",
+          "size": 2918,
+          "sha256": "a9b49bc99b8c736100b44979394dde50f8a27f6b313689249bc4e24c43155d5f"
+        },
+        {
+          "path": "README.md",
+          "size": 3019,
+          "sha256": "e500fb3cc8e0c0fab97638010b9c885915c7059ef8cb5973eef9a49df929abcf"
+        },
+        {
+          "path": "bridge.mjs",
+          "size": 12692,
+          "sha256": "79584fcd61c0e49a339749db84833b32bb04291b78e5b7c8cc062982c54b0538"
+        },
+        {
+          "path": "icon.svg",
+          "size": 523,
+          "sha256": "04933aab4a0ea741a0ebabd0983a8ffc0bb73f56d89171d5327a6e906ed2d2a0"
+        },
+        {
+          "path": "plugin.json",
+          "size": 8858,
+          "sha256": "f4d4244c38811fcc1e08c979ee2929f9b4012c5d2e4468b3ccee30622d7cc6dd"
+        }
+      ]
+    },
+    {
+      "id": "notes",
+      "name": "Bloc-notes",
+      "version": "1.0.6",
+      "description": "Des notes rangées par dossiers, écrites dans l'éditeur markdown d'Allkin : un arbre de dossiers et de notes, recherche, épingles, corbeille, images, et « Demander à un agent » pour envoyer une note dans une conversation. Chaque note est un fichier .md du dossier partagé, que les agents lisent et écrivent aussi.",
+      "author": "Allkin",
+      "permissions": [
+        {
+          "id": "interface",
+          "reason": "Ajoute le bloc-notes à la page d'Allkin : son onglet et son entrée dans la liste des intégrations."
+        }
+      ],
+      "service": false,
+      "web": false,
+      "ui": true,
+      "icon": "icon.svg",
+      "requires": [
+        "markdown-editor"
+      ],
+      "locales": {
+        "en": {
+          "name": "Notes",
+          "description": "Notes filed in folders, written in Allkin's Markdown editor: a tree of folders and notes, search, pins, bin, images, and “Ask an agent” to send a note into a conversation. Each note is a .md file of the shared folder, which the agents read and write too.",
+          "permissions": {
+            "interface": "Adds the notepad to the Allkin page: its tab and its entry in the list of integrations."
+          }
+        },
+        "es": {
+          "name": "Bloc de notas",
+          "description": "Notas ordenadas en carpetas, escritas en el editor Markdown de Allkin: un árbol de carpetas y notas, búsqueda, notas fijadas, papelera, imágenes y «Preguntar a un agente» para enviar una nota a una conversación. Cada nota es un archivo .md de la carpeta compartida, que los agentes también leen y escriben.",
+          "permissions": {
+            "interface": "Añade el bloc de notas a la página de Allkin: su pestaña y su entrada en la lista de integraciones."
+          }
+        },
+        "de": {
+          "name": "Notizen",
+          "description": "Notizen in Ordnern, geschrieben im Markdown-Editor von Allkin: ein Baum aus Ordnern und Notizen, Suche, angeheftete Notizen, Papierkorb, Bilder und „Einen Agenten fragen“, um eine Notiz in eine Unterhaltung zu schicken. Jede Notiz ist eine .md-Datei im gemeinsamen Ordner, die auch die Agenten lesen und schreiben.",
+          "permissions": {
+            "interface": "Fügt der Allkin-Seite den Notizblock hinzu: seinen Tab und seinen Eintrag in der Integrationsliste."
+          }
+        }
+      },
+      "files": [
+        {
+          "path": "README-DE.md",
+          "size": 7048,
+          "sha256": "14c2db798a15cb52118c25d57d976aceeb8f11f00e85a11c273e11c44c654b98"
+        },
+        {
+          "path": "README-EN.md",
+          "size": 6207,
+          "sha256": "a93d93b176b1e525bff823b988176eb664243ed6182f095efce9b5f2ada1d500"
+        },
+        {
+          "path": "README-ES.md",
+          "size": 6689,
+          "sha256": "30e07f6cb724d0a05a96123daa4c402fa7a3ee2431a8156d1acd7bc5257e4bdd"
+        },
+        {
+          "path": "README.md",
+          "size": 6956,
+          "sha256": "72b16616ba8f7188de60a569582629ca7906258246ac1c2c5e992fbf6782f528"
+        },
+        {
+          "path": "icon.svg",
+          "size": 396,
+          "sha256": "713c5c984016c67a0db57b2e4152218e536ebba23ff52aa3905058b4d73dac9e"
+        },
+        {
+          "path": "locales.js",
+          "size": 25358,
+          "sha256": "d613e9de926fbe5053c67fc0759c3c85e31367cf3fa2f094471e34b7ac57513d"
+        },
+        {
+          "path": "notes.css",
+          "size": 15960,
+          "sha256": "dab8755c2247e13f30f3cf629082b8b0ee65fb9eb3cfbea4d1d5da505be1298b"
+        },
+        {
+          "path": "notes.js",
+          "size": 73299,
+          "sha256": "aa836499bccf7e5cc70ccaffaa02f465671121612da24a4e7e5b0fb5bf0cfd61"
+        },
+        {
+          "path": "plugin.json",
+          "size": 2425,
+          "sha256": "910018898d04d6194e61120bbe099e4e3ad75bc6d68d63dc73926fdd31b145cb"
+        },
+        {
+          "path": "view.html",
+          "size": 7346,
+          "sha256": "4b76319268dd7a981e6f3edf94747c082fbe51c7a60fbe2a5ec32bd388520178"
+        }
+      ]
+    },
+    {
+      "id": "recordr",
+      "name": "Recordr",
+      "version": "1.0.7",
+      "description": "Écoute le micro, transcrit ce qui se dit au fil de la parole et distingue les interlocuteurs. La reconnaissance est faite par le service audio que vous choisissez.",
+      "author": "Allkin",
+      "permissions": [
+        {
+          "id": "network",
+          "reason": "Écoute sur un port local pour servir sa page dans Allkin. L'audio part du navigateur directement chez le service audio choisi, avec une clé temporaire qu'Allkin lui demande."
+        }
+      ],
+      "service": true,
+      "web": true,
+      "ui": false,
+      "icon": "icon.svg",
+      "locales": {
+        "en": {
+          "name": "Recordr",
+          "description": "Listens to the microphone, transcribes what is said as it is spoken and tells the speakers apart. Recognition is done by the audio service you choose.",
+          "permissions": {
+            "network": "Listens on a local port to serve its page in Allkin. The audio goes from the browser straight to the chosen audio service, with a temporary key Allkin asks it for."
+          }
+        },
+        "es": {
+          "name": "Recordr",
+          "description": "Escucha el micrófono, transcribe lo que se dice a medida que se habla y distingue a los interlocutores. El reconocimiento lo hace el servicio de audio que elijas.",
+          "permissions": {
+            "network": "Escucha en un puerto local para servir su página en Allkin. El audio va del navegador directamente al servicio de audio elegido, con una clave temporal que Allkin le pide."
+          }
+        },
+        "de": {
+          "name": "Recordr",
+          "description": "Hört dem Mikrofon zu, schreibt mit, was gesagt wird, während gesprochen wird, und unterscheidet die Sprecher. Die Erkennung übernimmt der Audiodienst, den du wählst.",
+          "permissions": {
+            "network": "Lauscht auf einem lokalen Port, um seine Seite in Allkin auszuliefern. Der Ton geht vom Browser direkt zum gewählten Audiodienst, mit einem temporären Schlüssel, den Allkin dort anfordert."
+          }
+        }
+      },
+      "files": [
+        {
+          "path": "README-DE.md",
+          "size": 5969,
+          "sha256": "5920fd1342ab8bea712c20899c5f50d4f277393d25dee953e9e49e0e3ae190ac"
+        },
+        {
+          "path": "README-EN.md",
+          "size": 5406,
+          "sha256": "1c85f7a7e64f7ebc20b063e1c89da1d38fe430f5be3fb5820f3966c66a67042a"
+        },
+        {
+          "path": "README-ES.md",
+          "size": 5752,
+          "sha256": "8feacd15860cb29759688ad5a733d3967ca522b907afc1c495e608ac66c55e6a"
+        },
+        {
+          "path": "README.md",
+          "size": 5871,
+          "sha256": "ac671c39b247ef61da24594e49df579c88c8d41a7fe0a32bbca59fd30ff5d887"
+        },
+        {
+          "path": "icon.svg",
+          "size": 500,
+          "sha256": "0083e408f3934c2da9c1b61ff4dd82bad407d099c715a1c3199cef9b598bd1e4"
+        },
+        {
+          "path": "plugin.json",
+          "size": 5946,
+          "sha256": "39f48c92765a014b338889ef232a758ecebed8900e5c8325c00254aa2e7dcbb7"
+        },
+        {
+          "path": "server.mjs",
+          "size": 7748,
+          "sha256": "8b1dd43783aa9e8d02aa5849abdf7d673abcfb07cc55c37d2a28b56d477417f4"
+        },
+        {
+          "path": "web/app.js",
+          "size": 53184,
+          "sha256": "c8647ca23c3f7eca0025191a5554303afae0ed3f20aaa92bd229e40fcdcd2038"
+        },
+        {
+          "path": "web/index.html",
+          "size": 13866,
+          "sha256": "4603519efe813ca1ef76d4363293acbad575c134cc5e72cd7b646b9774edfafa"
+        },
+        {
+          "path": "web/locales.js",
+          "size": 19819,
+          "sha256": "a9ac4e4c9654fd0a452c51b924186fb04d204efb8abdbf94ee366fa292b5b996"
+        },
+        {
+          "path": "web/stream.js",
+          "size": 9724,
+          "sha256": "9ef13f676746cf35629f7cf79e2e66d80ed1396dceffdd5df24dca919fb8dd56"
+        },
+        {
+          "path": "web/style.css",
+          "size": 25039,
+          "sha256": "32e3822d8c8a39017120cd1402813f1f48534303228a3e51836fb65f9c7bc782"
+        },
+        {
+          "path": "web/worklet.js",
+          "size": 1722,
+          "sha256": "7adf161c6212b16a02b4d03f988de5b4727bbcf5fce61ee1fa884acb7333ffbb"
+        }
+      ]
+    },
+    {
+      "id": "telegram-bridge",
+      "name": "Pont Telegram",
+      "version": "1.0.4",
+      "description": "Parlez à vos agents depuis Telegram : un bot écoute en continu, relaie chaque message à l'agent de votre choix et renvoie sa réponse. Les commandes à valider arrivent avec deux boutons.",
+      "author": "Allkin",
+      "permissions": [
+        {
+          "id": "network",
+          "reason": "Interroge l'API de Telegram en continu (long polling) et y renvoie les réponses des agents ; télécharge les fichiers reçus."
+        },
+        {
+          "id": "agents",
+          "reason": "Ouvre une conversation avec l'agent choisi par la socket d'Allkin, lui transmet les messages et valide ou refuse ses commandes depuis Telegram."
+        },
+        {
+          "id": "filesystem",
+          "reason": "Dépose les photos et fichiers reçus dans le dossier Upload de l'agent."
+        }
+      ],
+      "service": true,
+      "web": false,
+      "ui": false,
+      "icon": "icon.svg",
+      "locales": {
+        "en": {
+          "name": "Telegram bridge",
+          "description": "Talk to your agents from Telegram: a bot listens continuously, relays every message to the agent of your choice and sends its answer back. Commands to approve come with two buttons.",
+          "permissions": {
+            "network": "Polls the Telegram API continuously (long polling) and sends the agents' answers back; downloads received files.",
+            "agents": "Opens a conversation with the chosen agent through Allkin's socket, passes the messages on, and approves or refuses its commands from Telegram.",
+            "filesystem": "Drops received photos and files into the agent's Upload folder."
+          }
+        },
+        "es": {
+          "name": "Puente Telegram",
+          "description": "Habla con tus agentes desde Telegram: un bot escucha en continuo, reenvía cada mensaje al agente que elijas y devuelve su respuesta. Los comandos por validar llegan con dos botones.",
+          "permissions": {
+            "network": "Consulta la API de Telegram en continuo (long polling) y devuelve las respuestas de los agentes; descarga los archivos recibidos.",
+            "agents": "Abre una conversación con el agente elegido a través del socket de Allkin, le pasa los mensajes y autoriza o rechaza sus comandos desde Telegram.",
+            "filesystem": "Deposita las fotos y archivos recibidos en la carpeta Upload del agente."
+          }
+        },
+        "de": {
+          "name": "Telegram-Brücke",
+          "description": "Sprich von Telegram aus mit deinen Agenten: Ein Bot hört ständig zu, leitet jede Nachricht an den gewählten Agenten weiter und schickt seine Antwort zurück. Freizugebende Befehle kommen mit zwei Schaltflächen.",
+          "permissions": {
+            "network": "Fragt die Telegram-API fortlaufend ab (Long Polling) und schickt die Antworten der Agenten zurück; lädt empfangene Dateien herunter.",
+            "agents": "Öffnet über die Socket von Allkin eine Unterhaltung mit dem gewählten Agenten, reicht die Nachrichten weiter und gibt seine Befehle aus Telegram frei oder lehnt sie ab.",
+            "filesystem": "Legt empfangene Fotos und Dateien im Upload-Ordner des Agenten ab."
+          }
+        }
+      },
+      "files": [
+        {
+          "path": "README-DE.md",
+          "size": 2747,
+          "sha256": "645908056e86c19b9c8bbe821d81ebefcdc3431b851ae009e5aba69661c2e4a4"
+        },
+        {
+          "path": "README-EN.md",
+          "size": 2576,
+          "sha256": "471ff60a7f976689a5f1c2f4b1d916f62b07894647153601e4d263bf1921b8c4"
+        },
+        {
+          "path": "README-ES.md",
+          "size": 2717,
+          "sha256": "c15380255a436c7ee1085f8aab300fdf025f81397a9e68a43b5c28c7e896d151"
+        },
+        {
+          "path": "README.md",
+          "size": 2870,
+          "sha256": "761d4b79120e7f3b9dddfdeac6a3b15d2ef5892091a304ed129483eec06f8440"
+        },
+        {
+          "path": "bridge.mjs",
+          "size": 23084,
+          "sha256": "5d9c49e952f340681f22fc1459f3e14ba06bf600ab8fbc6016a46afade990c40"
+        },
+        {
+          "path": "icon.svg",
+          "size": 654,
+          "sha256": "212ed0f3b8bee5d286407fee64ce75e9e3efaeabb4a646597091941c3d9d1353"
+        },
+        {
+          "path": "plugin.json",
+          "size": 7591,
+          "sha256": "50381a8ff537a35307f67b9c009b1ac58363f41a53971971f4cb567f546c822e"
+        }
+      ]
+    },
+    {
+      "id": "wetty",
+      "name": "WeTTY",
+      "version": "1.0.5",
+      "description": "Terminal dans le navigateur (WeTTY) : une session SSH sur la machine, ouverte dans un onglet d'Allkin.",
+      "author": "butlerx/wetty — intégration Allkin",
+      "homepage": "https://github.com/butlerx/wetty",
+      "permissions": [
+        {
+          "id": "network",
+          "reason": "Télécharge WeTTY depuis npm au premier démarrage, écoute sur un port local et se connecte au serveur SSH."
+        },
+        {
+          "id": "exec",
+          "reason": "Lance npm pour installer WeTTY, puis ssh : le terminal exécute les commandes que vous tapez."
+        },
+        {
+          "id": "filesystem",
+          "reason": "Un terminal donne accès à tous les fichiers du compte avec lequel vous vous connectez."
+        }
+      ],
+      "service": true,
+      "web": true,
+      "ui": false,
+      "icon": "icon.svg",
+      "locales": {
+        "en": {
+          "name": "WeTTY",
+          "description": "Terminal in the browser (WeTTY): an SSH session on the machine, opened in an Allkin tab.",
+          "permissions": {
+            "network": "Downloads WeTTY from npm on first start, listens on a local port and connects to the SSH server.",
+            "exec": "Runs npm to install WeTTY, then ssh: the terminal executes the commands you type.",
+            "filesystem": "A terminal gives access to every file of the account you log in with."
+          }
+        },
+        "es": {
+          "name": "WeTTY",
+          "description": "Terminal en el navegador (WeTTY): una sesión SSH en la máquina, abierta en una pestaña de Allkin.",
+          "permissions": {
+            "network": "Descarga WeTTY desde npm en el primer inicio, escucha en un puerto local y se conecta al servidor SSH.",
+            "exec": "Ejecuta npm para instalar WeTTY y luego ssh: el terminal ejecuta los comandos que escribes.",
+            "filesystem": "Un terminal da acceso a todos los archivos de la cuenta con la que te conectas."
+          }
+        },
+        "de": {
+          "name": "WeTTY",
+          "description": "Terminal im Browser (WeTTY): eine SSH-Sitzung auf der Maschine, geöffnet in einem Tab von Allkin.",
+          "permissions": {
+            "network": "Lädt WeTTY beim ersten Start von npm herunter, lauscht auf einem lokalen Port und verbindet sich mit dem SSH-Server.",
+            "exec": "Startet npm, um WeTTY zu installieren, dann ssh: Das Terminal führt die Befehle aus, die du eingibst.",
+            "filesystem": "Ein Terminal gibt Zugriff auf alle Dateien des Kontos, mit dem du dich anmeldest."
+          }
+        }
+      },
+      "files": [
+        {
+          "path": "README-DE.md",
+          "size": 3063,
+          "sha256": "df899dacedbe69ddc4292062e2167d429fea75be63a582d96c1be8bf8be01eae"
+        },
+        {
+          "path": "README-EN.md",
+          "size": 2765,
+          "sha256": "f2a061d787c29705a7c62769a0d64e6c209b939616ced9fb5cc7068c9780d82b"
+        },
+        {
+          "path": "README-ES.md",
+          "size": 2893,
+          "sha256": "6081154692c04ccd09179b244a6139c419f1685306f69bd19a454d520c429584"
+        },
+        {
+          "path": "README.md",
+          "size": 2931,
+          "sha256": "fd5584500b8d770dc8b561f389470b321c0a5ed40c480953f1ee12e4ba3783a6"
+        },
+        {
+          "path": "icon.svg",
+          "size": 568,
+          "sha256": "b238be3199dffc909444483deed7ebdfba5db6de5519ab416970cd2970623674"
+        },
+        {
+          "path": "plugin.json",
+          "size": 7349,
+          "sha256": "2f9a3c44ff373f4ccd670c1a927955fb57cbda702a831a8bb41394f94cf322c9"
+        },
+        {
+          "path": "start.mjs",
+          "size": 4535,
+          "sha256": "447f57861dea7710be1b498d3cb633c2152d37fed6fc69568711541515cce2a4"
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "clear-answers",
+      "name": "clear-answers",
+      "version": "1.0.2",
+      "description": "Use for every answer longer than a few lines, and whenever the user asks to shorten, clarify, restructure or \"make it readable\". Rules for answers that are read once on a screen or a phone: the point first, short sentences, lists for parallel items, no padding.",
+      "author": "Allkin",
+      "category": "writing",
+      "locales": {
+        "en": {
+          "name": "Clear answers",
+          "description": "The point first, short sentences, lists for parallel items, numbers and code set apart, no padding: answers read once on a screen or a phone."
+        },
+        "fr": {
+          "name": "Réponses claires",
+          "description": "L'essentiel d'abord, phrases courtes, listes pour les éléments parallèles, chiffres et code à part, aucun remplissage : des réponses lues une fois, sur écran ou téléphone."
+        },
+        "es": {
+          "name": "Respuestas claras",
+          "description": "Lo esencial primero, frases cortas, listas para elementos paralelos, cifras y código aparte, sin relleno: respuestas que se leen una vez, en pantalla o en el móvil."
+        },
+        "de": {
+          "name": "Klare Antworten",
+          "description": "Das Wesentliche zuerst, kurze Sätze, Listen für parallele Punkte, Zahlen und Code abgesetzt, kein Füllstoff: Antworten, die einmal gelesen werden, am Bildschirm oder Telefon."
+        }
+      },
+      "files": [
+        {
+          "path": "README-DE.md",
+          "size": 463,
+          "sha256": "2d9f41f5e6611bebe319d6e888a8f93d3885589aaa88d73fcc5cab618f44bcb6"
+        },
+        {
+          "path": "README-ES.md",
+          "size": 449,
+          "sha256": "86fbf1787e2df5bb2d4aa84570ea27c5b88cf0ab67b020af30da156d85ce0452"
+        },
+        {
+          "path": "README-FR.md",
+          "size": 483,
+          "sha256": "b7b753bb46097eb230b30b22e555e5d5e54cfa8b58ab86b973832b988d199499"
+        },
+        {
+          "path": "README.md",
+          "size": 406,
+          "sha256": "ca2283c4a6619b2448e00bf749465c6b3c8cbfa16a4684825ac87509890397fd"
+        },
+        {
+          "path": "SKILL.md",
+          "size": 2186,
+          "sha256": "ab7b187e2bcc10b785a6f573c9eafcc41c8238ad89bb591703f98c03b238fcec"
+        },
+        {
+          "path": "skill.json",
+          "size": 1060,
+          "sha256": "c51cdb1f6f013c5f7dd578544ff71276495d853794bd3769ff5277d031ac5de9"
+        }
+      ]
+    },
+    {
+      "id": "code-review",
+      "name": "code-review",
+      "version": "1.0.2",
+      "description": "Use when the user asks to review, check, audit or critique code, a diff, a pull request or a script, or asks \"is this correct / safe / good\". Produces findings ranked by severity, each with the line and a concrete failure case.",
+      "author": "Allkin",
+      "category": "code",
+      "locales": {
+        "en": {
+          "name": "Code review",
+          "description": "Findings ranked by severity, each with file, line and a concrete failure case; correctness and security first, style last."
+        },
+        "fr": {
+          "name": "Revue de code",
+          "description": "Des constats classés par gravité, chacun avec fichier, ligne et un cas d'échec concret ; exactitude et sécurité d'abord, style en dernier."
+        },
+        "es": {
+          "name": "Revisión de código",
+          "description": "Hallazgos ordenados por gravedad, cada uno con archivo, línea y un caso de fallo concreto; corrección y seguridad primero, estilo al final."
+        },
+        "de": {
+          "name": "Code-Review",
+          "description": "Befunde nach Schwere geordnet, jeder mit Datei, Zeile und einem konkreten Fehlerfall; Korrektheit und Sicherheit zuerst, Stil zuletzt."
+        }
+      },
+      "files": [
+        {
+          "path": "README-DE.md",
+          "size": 453,
+          "sha256": "69fec03f12c713a3b6b4d72a5e1c509afcb8d397a2fb6c67ac6790f6e32a78ce"
+        },
+        {
+          "path": "README-ES.md",
+          "size": 482,
+          "sha256": "5ec514c6819ab380c3145076ba810ab7ea1d2286d6926d6e97a21bcfab52d2f6"
+        },
+        {
+          "path": "README-FR.md",
+          "size": 474,
+          "sha256": "06b62d5067e97e0783a45656c9dd7e89a37bd29cfadd550083ac236af0843d9f"
+        },
+        {
+          "path": "README.md",
+          "size": 408,
+          "sha256": "d9facfcc33fe98ad625e737291e8356a299f4a89161d06662555c53ac6550e8b"
+        },
+        {
+          "path": "SKILL.md",
+          "size": 2378,
+          "sha256": "5941a7893183b6f1c8dec49fdef15bc477c95915062b7538bc515b9fea39624c"
+        },
+        {
+          "path": "skill.json",
+          "size": 927,
+          "sha256": "95f615b9f3f2b4408066c6b009d3533d99eae400910d09a91e389439a4043b47"
+        }
+      ]
+    },
+    {
+      "id": "email-drafting",
+      "name": "email-drafting",
+      "version": "1.0.2",
+      "description": "Use when the user asks to write, reply to, rephrase or soften an e-mail, a letter or a message to someone — a client, a supplier, a colleague, an administration. Produces a ready-to-send draft with subject line, in the right register.",
+      "author": "Allkin",
+      "category": "communication",
+      "locales": {
+        "en": {
+          "name": "E-mail drafting",
+          "description": "Ready-to-send e-mails and replies: the point first, one request, the right register for the recipient, a subject line and a date to answer by."
+        },
+        "fr": {
+          "name": "Rédaction d'e-mails",
+          "description": "Des e-mails et des réponses prêts à envoyer : l'essentiel d'abord, une seule demande, le bon registre pour le destinataire, un objet et une date de réponse."
+        },
+        "es": {
+          "name": "Redacción de correos",
+          "description": "Correos y respuestas listos para enviar: lo esencial primero, una sola petición, el registro adecuado para el destinatario, un asunto y una fecha de respuesta."
+        },
+        "de": {
+          "name": "E-Mails verfassen",
+          "description": "Versandfertige E-Mails und Antworten: das Wesentliche zuerst, eine Bitte, das passende Register für den Empfänger, Betreffzeile und Antwortfrist."
+        }
+      },
+      "files": [
+        {
+          "path": "README-DE.md",
+          "size": 412,
+          "sha256": "1ca4ef002d6a8da685703e3dd77393ca00d56cd199d456af2a8523a9f6fd65d0"
+        },
+        {
+          "path": "README-ES.md",
+          "size": 417,
+          "sha256": "04768e5edfa7495768dacb642504f65cc9c6ee75ce587a466db86e23133112c1"
+        },
+        {
+          "path": "README-FR.md",
+          "size": 418,
+          "sha256": "e86f471795e555b0ed3671ccdd1a88919db80b41967db03b5eb744750d474f32"
+        },
+        {
+          "path": "README.md",
+          "size": 375,
+          "sha256": "07a4beaa8012ce0983cade601bb145d08f9410d17c8721a58b58aa0a8c8345e6"
+        },
+        {
+          "path": "SKILL.md",
+          "size": 2228,
+          "sha256": "bba3cca022a6fe01c1958ab51d2c49444bce90d06b9d89e71c4c0e92b2473c36"
+        },
+        {
+          "path": "skill.json",
+          "size": 1023,
+          "sha256": "dc2110ea9b7ba720c9a0ba828fc22e37fdd316bbe5e8c59cb5ede7e435170e28"
+        }
+      ]
+    },
+    {
+      "id": "incident-report",
+      "name": "incident-report",
+      "version": "1.0.2",
+      "description": "Use when something is broken or slow on a machine or a service — \"it does not work\", \"the site is down\", \"the disk is full\", an error in a log — and the user wants it diagnosed, fixed or written up. Drives a step-by-step diagnosis and produces an incident report.",
+      "author": "Allkin",
+      "category": "operations",
+      "locales": {
+        "en": {
+          "name": "Incident report",
+          "description": "Observe, one hypothesis at a time, the smallest reversible fix, then confirm; a dated incident report with timeline, root cause and follow-ups."
+        },
+        "fr": {
+          "name": "Rapport d'incident",
+          "description": "Observer, une hypothèse à la fois, la correction réversible la plus petite, puis confirmer ; un rapport d'incident daté avec chronologie, cause et suites."
+        },
+        "es": {
+          "name": "Informe de incidente",
+          "description": "Observar, una hipótesis a la vez, la corrección reversible más pequeña, luego confirmar; un informe de incidente fechado con cronología, causa raíz y seguimiento."
+        },
+        "de": {
+          "name": "Störungsbericht",
+          "description": "Beobachten, eine Hypothese nach der anderen, die kleinste umkehrbare Maßnahme, dann bestätigen; ein datierter Störungsbericht mit Zeitlinie, Ursache und Folgemaßnahmen."
+        }
+      },
+      "files": [
+        {
+          "path": "README-DE.md",
+          "size": 578,
+          "sha256": "95ca40fcddbccf49b47291357858c449b3c5e129ff79e347856450596b014056"
+        },
+        {
+          "path": "README-ES.md",
+          "size": 541,
+          "sha256": "ba8cc481215938266cdc9075b4d7f736ddd1028b9a4063fd504a34950def97a2"
+        },
+        {
+          "path": "README-FR.md",
+          "size": 550,
+          "sha256": "f32e686331f1f2d5d75cc5e0b00d7bf74522223f1428b9ede6143cc1944d0257"
+        },
+        {
+          "path": "README.md",
+          "size": 495,
+          "sha256": "4d79097ece5143e836574ebd0e17b1b16d1b77a5ca5a947b52c521eb1a06cb0b"
+        },
+        {
+          "path": "SKILL.md",
+          "size": 2574,
+          "sha256": "c98d846c381c160997168146051bd5b9e0047a9b4847f8a398a5dd4e0bc87093"
+        },
+        {
+          "path": "skill.json",
+          "size": 1048,
+          "sha256": "a552e6f9c16bec6c63d4b7d7e6fdebef96ebc870a07b7731d6069e22d10f3733"
+        }
+      ]
+    },
+    {
+      "id": "manage-actions",
+      "name": "manage-actions",
+      "version": "1.0.0",
+      "description": "Use when the user wants something done later, again and again, or whenever something happens on the machine — \"every morning\", \"remind me tomorrow\", \"each Monday\", \"warn me when a sign-in fails\", \"when an agent fails, look into it\", \"after an update\". Creates, reviews and deletes Allkin's actions, at a time or on an event of the event log.",
+      "author": "Allkin",
+      "category": "operations",
+      "locales": {
+        "en": {
+          "name": "Manage actions",
+          "description": "Create, read and delete Allkin's actions — at a time or on an event of the event log —, each one approved by you. A second key on top of the right “Can schedule actions”, never a wider right."
+        },
+        "fr": {
+          "name": "Gérer les actions",
+          "description": "Créer, relire et supprimer les actions d'Allkin — à heure fixe ou sur un événement du journal —, chacune approuvée par vous. Une seconde clé en plus du droit « Peut planifier des actions », jamais un droit de plus."
+        },
+        "es": {
+          "name": "Gestionar acciones",
+          "description": "Crear, consultar y eliminar las acciones de Allkin — a una hora o ante un evento del registro —, cada una aprobada por ti. Una segunda llave además del derecho «Puede programar acciones», nunca un derecho más."
+        },
+        "de": {
+          "name": "Aktionen verwalten",
+          "description": "Aktionen von Allkin anlegen, lesen und löschen – zu einer Zeit oder bei einem Ereignis des Protokolls –, jede von dir freigegeben. Ein zweiter Schlüssel zusätzlich zum Recht „Darf Aktionen planen“, nie ein zusätzliches Recht."
+        }
+      },
+      "files": [
+        {
+          "path": "README-DE.md",
+          "size": 690,
+          "sha256": "9033f62c92d85af9cbba58b663f8c9dc41c9e3808a98c07cbbe32ba1bbd3a388"
+        },
+        {
+          "path": "README-ES.md",
+          "size": 683,
+          "sha256": "1c77a9d30aeec6a210b801b01d0a56da68a9ea19ca55694905310f73e82ba2d4"
+        },
+        {
+          "path": "README-FR.md",
+          "size": 682,
+          "sha256": "e8eadb444ad8cf3fce16a906834ca1733b8274fa160e965d2132eb82b3b3f391"
+        },
+        {
+          "path": "README.md",
+          "size": 597,
+          "sha256": "08ac9aa68b4fff636a61a509e72fbe640c5a242f943cdf33463c81d548abc0d8"
+        },
+        {
+          "path": "SKILL.md",
+          "size": 6002,
+          "sha256": "5d4214117458821b86b84de6f7526ed78c3f68360a6bea33fb9fe8711d3aaedd"
+        },
+        {
+          "path": "skill.json",
+          "size": 1285,
+          "sha256": "330ec99766bc252e7d8ba05b0e9b4ae811454f76a0878866e48155d3b1121961"
+        }
+      ]
+    },
+    {
+      "id": "markdown-tables",
+      "name": "markdown-tables",
+      "version": "1.0.3",
+      "description": "Use when the answer compares several items along the same criteria, lists options with their properties, or when the user asks for a table. Produces a Markdown table that reads well in Allkin's conversation.",
+      "author": "Allkin",
+      "category": "writing",
+      "locales": {
+        "en": {
+          "name": "Markdown tables",
+          "description": "Comparisons and option lists as clean Markdown tables: when a table fits, how narrow to keep it, how to align and introduce it."
+        },
+        "fr": {
+          "name": "Tableaux Markdown",
+          "description": "Comparaisons et listes d'options en tableaux Markdown propres : quand un tableau convient, quelle largeur garder, comment l'aligner et l'introduire."
+        },
+        "es": {
+          "name": "Tablas Markdown",
+          "description": "Comparaciones y listas de opciones en tablas Markdown limpias: cuándo conviene una tabla, qué anchura mantener, cómo alinearla e introducirla."
+        },
+        "de": {
+          "name": "Markdown-Tabellen",
+          "description": "Vergleiche und Optionslisten als saubere Markdown-Tabellen: wann eine Tabelle passt, wie schmal sie bleibt, wie man sie ausrichtet und einleitet."
+        }
+      },
+      "files": [
+        {
+          "path": "README-DE.md",
+          "size": 576,
+          "sha256": "c3510bb4fbb7f1a75a51185d730c4b28caf1acdda8404871c205123c6953bee4"
+        },
+        {
+          "path": "README-ES.md",
+          "size": 581,
+          "sha256": "9e1d12314b9a94863af4976c72d60529229bde73536551a96f90ad5826fe677d"
+        },
+        {
+          "path": "README-FR.md",
+          "size": 594,
+          "sha256": "1a124aaa617929d6dd5b4e246e39eeb8ded260cb1ece0fd10b95da5c60cdb0d5"
+        },
+        {
+          "path": "README.md",
+          "size": 525,
+          "sha256": "e855655f92a491b4bdd925a171cd579e08010e0b1ac7bbb96295cb9f84beade9"
+        },
+        {
+          "path": "SKILL.md",
+          "size": 1976,
+          "sha256": "84241a0a777cf5a7626227d56bf2c288798f99f8775c83a7a88a211bcde15de8"
+        },
+        {
+          "path": "skill.json",
+          "size": 964,
+          "sha256": "06690cfcd0f577b4b3408d0a7ced3c4f5f980508c8e375c9743799487ac233ca"
+        }
+      ]
+    },
+    {
+      "id": "meeting-notes",
+      "name": "meeting-notes",
+      "version": "1.0.3",
+      "description": "Use when the user hands over a transcript, a recording's text or rough notes of a meeting and wants minutes, a summary, the decisions or the action items. Produces structured minutes with owners and deadlines.",
+      "author": "Allkin",
+      "category": "organisation",
+      "locales": {
+        "en": {
+          "name": "Meeting notes",
+          "description": "Minutes from a transcript or rough notes: decisions, actions with owners and deadlines, open questions, unclear passages to check."
+        },
+        "fr": {
+          "name": "Compte rendu de réunion",
+          "description": "Un compte rendu depuis une transcription ou des notes brutes : décisions, actions avec responsable et échéance, questions ouvertes, passages à vérifier."
+        },
+        "es": {
+          "name": "Acta de reunión",
+          "description": "Un acta a partir de una transcripción o de notas sueltas: decisiones, acciones con responsable y plazo, preguntas abiertas, pasajes por comprobar."
+        },
+        "de": {
+          "name": "Besprechungsprotokoll",
+          "description": "Ein Protokoll aus einem Transkript oder groben Notizen: Entscheidungen, Aufgaben mit Verantwortlichen und Fristen, offene Fragen, zu prüfende Stellen."
+        }
+      },
+      "files": [
+        {
+          "path": "README-DE.md",
+          "size": 537,
+          "sha256": "6e123b4f406a4b1d2f6cfa6d56f58f09976f49deffe12c59fe91096499e919da"
+        },
+        {
+          "path": "README-ES.md",
+          "size": 480,
+          "sha256": "095299c51fd7e79760e67f1b1e91ac5a3ede48866cf712fb69426fcafc98c7c4"
+        },
+        {
+          "path": "README-FR.md",
+          "size": 552,
+          "sha256": "bf836fce22923823864b495007b5f5dd30b4e8ff6958aa2128ce4fc6305afc8a"
+        },
+        {
+          "path": "README.md",
+          "size": 470,
+          "sha256": "06950eb74df84ed7fb82bea79f7484b470ad5ad2de2c315b11b23137b8db5b12"
+        },
+        {
+          "path": "SKILL.md",
+          "size": 2219,
+          "sha256": "8d745a146c80dcce5003703d64ded3acdaa49e016b1917c4f69929659368091e"
+        },
+        {
+          "path": "skill.json",
+          "size": 999,
+          "sha256": "165a608f4f3441b8377099fa6f479bd3601a6084076d4501d5f731e4c81a03ed"
+        }
+      ]
+    },
+    {
+      "id": "project-plan",
+      "name": "project-plan",
+      "version": "1.0.2",
+      "description": "Use when the user states a goal, a project or a piece of work to organise and wants a plan, milestones, a task list, a schedule or a risk review. Produces a plan file that can be followed and updated.",
+      "author": "Allkin",
+      "category": "organisation",
+      "locales": {
+        "en": {
+          "name": "Project plan",
+          "description": "A goal turned into milestones, tasks, risks and a plan file the agent keeps up to date as the user reports progress."
+        },
+        "fr": {
+          "name": "Plan de projet",
+          "description": "Un objectif transformé en jalons, tâches, risques et un fichier de plan que l'agent tient à jour au fil des avancées."
+        },
+        "es": {
+          "name": "Plan de proyecto",
+          "description": "Un objetivo convertido en hitos, tareas, riesgos y un archivo de plan que el agente mantiene al día según avanza el usuario."
+        },
+        "de": {
+          "name": "Projektplan",
+          "description": "Ein Ziel, umgesetzt in Meilensteine, Aufgaben, Risiken und eine Plandatei, die der Agent mit den gemeldeten Fortschritten aktuell hält."
+        }
+      },
+      "files": [
+        {
+          "path": "README-DE.md",
+          "size": 491,
+          "sha256": "12baced6c5ab4bb3eee477105d86782ca3dfd9f8f5f5395d0a12034a2d4d2a05"
+        },
+        {
+          "path": "README-ES.md",
+          "size": 470,
+          "sha256": "d7f1c7b366a20087cc5e9e03f064f3023457ba300b5418f55c6553ed41e9cd95"
+        },
+        {
+          "path": "README-FR.md",
+          "size": 487,
+          "sha256": "2f10b302d1abeeb987b9f9506dc6df75688df76794c43bc90b028ea4dae38e84"
+        },
+        {
+          "path": "README.md",
+          "size": 438,
+          "sha256": "e0a4464a90cf89008d4fb9cc92243dabec24d6a848be8b1da4b8278ddc777429"
+        },
+        {
+          "path": "SKILL.md",
+          "size": 2297,
+          "sha256": "b351b6c4e7969f770a8c17528e2a4cb34c03260ca1b9e0d35ad948f547f7e12d"
+        },
+        {
+          "path": "skill.json",
+          "size": 892,
+          "sha256": "7a886d91f3df4863d6ae921ee55dcbecd054c8b8034d238c111f63b45ec073f2"
+        }
+      ]
+    },
+    {
+      "id": "research-brief",
+      "name": "research-brief",
+      "version": "1.0.2",
+      "description": "Use when the user asks to look something up, compare products or options, check a fact, find out \"what is the state of\", or wants a summary of what is known on a topic. Needs web access. Produces a short brief with sources, dated.",
+      "author": "Allkin",
+      "category": "analysis",
+      "locales": {
+        "en": {
+          "name": "Research brief",
+          "description": "A sourced, dated answer from the web: wide search, primary pages read, claims with their source, disagreements and gaps stated. Needs the web right."
+        },
+        "fr": {
+          "name": "Synthèse de recherche",
+          "description": "Une réponse sourcée et datée depuis le web : recherche large, pages primaires lues, affirmations avec leur source, désaccords et manques énoncés. Nécessite le droit web."
+        },
+        "es": {
+          "name": "Síntesis de investigación",
+          "description": "Una respuesta con fuentes y fecha desde la web: búsqueda amplia, páginas primarias leídas, afirmaciones con su fuente, desacuerdos y lagunas indicados. Requiere el derecho web."
+        },
+        "de": {
+          "name": "Recherche-Briefing",
+          "description": "Eine belegte, datierte Antwort aus dem Web: breite Suche, Primärseiten gelesen, Aussagen mit Quelle, Widersprüche und Lücken benannt. Braucht das Web-Recht."
+        }
+      },
+      "files": [
+        {
+          "path": "README-DE.md",
+          "size": 469,
+          "sha256": "209dc552bf7b103d566b9ac1bd31ea330d6bc976c7c77f8b197cc5aef24b3a46"
+        },
+        {
+          "path": "README-ES.md",
+          "size": 474,
+          "sha256": "89ae775b1a52dfae0a339ab87d695a47f2293c9e2b021c61cbdae498d8303756"
+        },
+        {
+          "path": "README-FR.md",
+          "size": 487,
+          "sha256": "ce9649a1accd774d7ed0d7ba88b274a90217120a9f6c787750e13b6411a9c460"
+        },
+        {
+          "path": "README.md",
+          "size": 423,
+          "sha256": "f5296ae5dc0b1ac773452cddb39c04528dbfefa3081c8d1e6319fc9a228c2c02"
+        },
+        {
+          "path": "SKILL.md",
+          "size": 1979,
+          "sha256": "b5869dc7600a86c545e9873e4aa059adaa0cf0554b00b85dcc4f37efccb9d238"
+        },
+        {
+          "path": "skill.json",
+          "size": 1079,
+          "sha256": "d3e490d8cc0ecd06210882d1442398ed2b4e77222372249278b8c03cd1184e95"
+        }
+      ]
+    }
+  ],
+  "agents": []
+}

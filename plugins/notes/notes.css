@@ -1,0 +1,182 @@
+/* Notes. Every class is prefixed .nt- ; sizes and colours are Allkin's tokens,
+   so the view follows the theme and the scale. One column at the left (the
+   pinned notes, the tree of folders and notes, the bin), the note at the
+   right; the column folds and its width is dragged. */
+.nt-view { display: flex; flex-direction: column; height: 100%; min-height: 0; overflow: hidden; }
+.nt-view.hidden,
+.nt-view .hidden,
+.nt-menu.hidden { display: none; }
+.nt-head.page-bar { margin: 0; padding: 0 var(--sp-3); }
+.nt-head .nt-back { display: none; }
+/* The column folded: the button is lit, like a tool that is on. */
+.nt-head button.nt-fold.is-on,
+.nt-head button.nt-fold.is-on:hover:not(:disabled) { background: var(--grad-on); border-color: transparent; box-shadow: var(--btn-relief-on); color: #fff; }
+.nt-state.is-error { color: var(--risk-high); }
+.nt-head button.nt-empty-trash { color: var(--risk-high); }
+
+/* Where we are: the folder of the note, each segment a button. The last one
+   is the place itself and does nothing. */
+.nt-crumbs { flex: 0 1 auto; min-width: 0; display: flex; align-items: center; gap: 1px; overflow: hidden; white-space: nowrap; }
+.nt-head button.nt-crumb { height: 22px; min-width: 0; min-height: 0; padding: 0 6px; border: 0; border-radius: 6px; background: none; box-shadow: none; color: var(--text); font-size: var(--text-sm); font-weight: 600; }
+.nt-head button.nt-crumb:hover:not(:disabled) { background: color-mix(in srgb, var(--text) 6%, transparent); box-shadow: none; }
+.nt-head button.nt-crumb:disabled { color: var(--text); opacity: 1; cursor: default; }
+.nt-crumb-sep { display: inline-grid; place-items: center; flex-shrink: 0; color: var(--text-faint); }
+.nt-crumb-sep svg { width: 11px; height: 11px; }
+
+/* Search, in the page bar. */
+.nt-search { flex: 0 1 14rem; min-width: 6rem; margin-left: auto; display: flex; align-items: center; gap: var(--sp-2); height: var(--ctl-h); padding: 0 var(--sp-3); border: 1px solid var(--border); border-radius: var(--ctl-radius); background: var(--bg-alt); color: var(--text-faint); }
+.nt-search:focus-within { border-color: var(--focus-border); box-shadow: var(--focus-ring); }
+.nt-search > span { display: inline-grid; place-items: center; flex-shrink: 0; }
+.nt-search svg { width: 14px; height: 14px; }
+.nt-search input,
+.nt-search input:focus { flex: 1; min-width: 0; min-height: 0; height: 100%; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; outline: none; color: var(--text); font-size: var(--text-sm); }
+.nt-search + .page-bar-actions { margin-left: 0; }
+
+/* The column, its handle, the note. */
+.nt-body { position: relative; flex: 1; min-height: 0; display: flex; }
+.nt-col { flex: 0 0 var(--nt-col-w, 17rem); width: var(--nt-col-w, 17rem); min-width: 0; min-height: 0; display: flex; flex-direction: column; padding: var(--sp-1) 0 var(--sp-2); overflow-y: auto; overflow-x: hidden; background: var(--bg); border-right: 1px solid var(--border); }
+.nt-handle { flex: 0 0 7px; margin-left: -4px; position: relative; z-index: 1; cursor: col-resize; }
+.nt-handle:hover,
+.nt-handle.is-active { background: color-mix(in srgb, var(--accent) 30%, transparent); }
+.nt-view.is-folded :is(.nt-col, .nt-handle) { display: none; }
+.nt-view.is-resizing { cursor: col-resize; user-select: none; }
+.nt-view.is-resizing .nt-note { pointer-events: none; }
+.nt-icon { display: inline-grid; place-items: center; flex-shrink: 0; }
+.nt-icon svg { width: 16px; height: 16px; }
+
+/* ---- The column: groups and rows ----------------------------------------- */
+.nt-group { display: flex; align-items: center; gap: 2px; flex-shrink: 0; margin: var(--sp-3) 0 var(--sp-1); padding: 0 var(--sp-2) 0 var(--sp-4); font-size: var(--text-2xs); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-faint); }
+.nt-col > .nt-group:first-child { margin-top: var(--sp-2); }
+.nt-group > span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nt-view button.nt-group-btn { width: 22px; height: 22px; min-width: 0; min-height: 0; padding: 0; border: 0; border-radius: 6px; background: none; box-shadow: none; color: var(--text-faint); display: inline-grid; place-items: center; transform: none; }
+.nt-view button.nt-group-btn:hover { background: color-mix(in srgb, var(--text) 7%, transparent); color: var(--text); box-shadow: none; }
+.nt-group-btn svg { width: 14px; height: 14px; }
+.nt-row { display: flex; align-items: center; gap: var(--sp-2); flex-shrink: 0; height: var(--nav-h); margin: 0 var(--sp-2); padding: 0 var(--sp-2) 0 calc(var(--sp-1) + var(--nt-depth, 0) * 14px); border-radius: var(--ctl-radius); font-size: var(--text-sm); color: var(--text); white-space: nowrap; cursor: default; outline: none; }
+.nt-row:hover { background: color-mix(in srgb, var(--text) 5%, transparent); }
+.nt-row:focus-visible { box-shadow: inset 0 0 0 2px var(--accent); }
+.nt-row.is-current { background: var(--accent-soft); font-weight: 600; }
+.nt-row.is-current .nt-icon { color: var(--accent); }
+.nt-row.is-drop { outline: 2px solid var(--accent); outline-offset: -2px; background: var(--accent-soft); }
+.nt-row.is-dragged { opacity: 0.45; }
+.nt-row.is-flash { animation: nt-flash 1.6s ease; }
+@keyframes nt-flash { 0%, 55% { background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); } }
+.nt-view button.nt-caret { width: 16px; height: 16px; min-width: 0; min-height: 0; flex-shrink: 0; display: inline-grid; place-items: center; padding: 0; border: 0; border-radius: 4px; background: none; box-shadow: none; color: var(--text-faint); transform: none; }
+.nt-view button.nt-caret:hover { color: var(--text); background: color-mix(in srgb, var(--text) 8%, transparent); box-shadow: none; }
+.nt-caret svg { width: 11px; height: 11px; transition: transform 0.12s ease; }
+.nt-caret.is-open svg { transform: rotate(90deg); }
+.nt-caret-gap { width: 16px; flex-shrink: 0; }
+.nt-row .nt-icon { color: var(--text-dim); }
+.nt-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.nt-count { flex-shrink: 0; font-size: var(--text-2xs); color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.nt-row-bin { margin-top: auto; }
+.nt-col-empty { margin: 0; padding: var(--sp-2) var(--sp-4); font-size: var(--text-xs); color: var(--text-faint); }
+/* While something is dragged, the head of the tree is the zone that takes it
+   out of its folder: same place, same height, other words. */
+.nt-group-root { min-height: 24px; }
+.nt-view.is-dragging .nt-group-root { margin-left: var(--sp-2); margin-right: var(--sp-2); padding: 0 var(--sp-2); border-radius: var(--ctl-radius); box-shadow: inset 0 0 0 1px var(--accent); background: var(--accent-soft); color: var(--accent); letter-spacing: 0; text-transform: none; font-size: var(--text-xs); }
+.nt-view.is-dragging .nt-group-root > span { text-align: center; }
+.nt-view.is-dragging .nt-group-root .nt-group-btn { display: none; }
+.nt-view.is-dragging .nt-group-root.is-drop { box-shadow: inset 0 0 0 2px var(--accent); background: color-mix(in srgb, var(--accent) 22%, transparent); }
+
+/* Search results take the column. */
+.nt-hit { display: flex; flex-direction: column; gap: 2px; flex-shrink: 0; margin: 0 var(--sp-2); padding: var(--sp-2) var(--sp-2) var(--sp-2) var(--sp-3); border-radius: var(--ctl-radius); font-size: var(--text-sm); cursor: default; outline: none; }
+.nt-hit:hover { background: color-mix(in srgb, var(--text) 5%, transparent); }
+.nt-hit:focus-visible { box-shadow: inset 0 0 0 2px var(--accent); }
+.nt-hit.is-current { background: var(--accent-soft); }
+.nt-hit-title { display: flex; align-items: center; gap: var(--sp-2); min-width: 0; font-weight: 600; }
+.nt-hit-title .nt-icon { color: var(--text-dim); }
+.nt-hit-title > span:last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nt-hit-where,
+.nt-hit-text { padding-left: 24px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nt-hit-where { font-size: var(--text-2xs); color: var(--text-faint); }
+.nt-hit-text { font-size: var(--text-xs); color: var(--text-dim); }
+.nt-hit-text mark { padding: 0 1px; border-radius: 3px; background: color-mix(in srgb, #f59e0b 35%, transparent); color: inherit; }
+
+/* ---- The note: title, toolbar, then the document from edge to edge -------- */
+.nt-note { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; background: var(--bg-alt); }
+.nt-note-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-2); padding: var(--sp-5); color: var(--text-faint); text-align: center; }
+.nt-note-empty svg { width: 40px; height: 40px; }
+.nt-note-empty p { margin: 0; font-size: var(--text-sm); }
+.nt-note-body { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.nt-view input.nt-title,
+.nt-view input.nt-title:hover,
+.nt-view input.nt-title:focus { flex-shrink: 0; width: 100%; min-height: 0; padding: var(--sp-4) var(--sp-6) var(--sp-2); border: 0; border-radius: 0; background: none; box-shadow: none; outline: none; color: var(--text); font-size: var(--text-2xl); font-weight: 700; letter-spacing: -0.01em; }
+.nt-toolbar { flex-shrink: 0; display: flex; align-items: center; gap: var(--sp-1); min-width: 0; padding: var(--sp-1) var(--sp-5); border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; }
+.nt-toolbar::-webkit-scrollbar { display: none; }
+.nt-toolbar > * { flex-shrink: 0; }
+.nt-doc { flex: 1; min-height: 0; overflow: auto; padding: var(--sp-4) var(--sp-6) var(--sp-8); font-size: var(--text-md); line-height: 1.65; cursor: text; }
+.nt-foot { flex-shrink: 0; padding: var(--sp-1) var(--sp-5); border-top: 1px solid var(--border); font-size: var(--text-2xs); color: var(--text-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nt-foot:empty { display: none; }
+
+/* The bin, in place of the note: a row per element, restore or erase. */
+.nt-trash { flex: 1; min-height: 0; overflow-y: auto; }
+.nt-trash-row { display: flex; align-items: center; gap: var(--sp-3); min-height: var(--row-h); padding: var(--sp-2) var(--sp-5); border-bottom: 1px solid var(--border); }
+.nt-trash-row .nt-icon { color: var(--text-dim); }
+.nt-trash-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.nt-trash-title { font-size: var(--text-sm); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nt-trash-sub { display: flex; gap: var(--sp-2); font-size: var(--text-xs); color: var(--text-faint); overflow: hidden; white-space: nowrap; }
+.nt-trash-row button { flex-shrink: 0; height: var(--ctl-h); min-height: 0; padding: 0 var(--ctl-pad-x); font-size: var(--text-xs); display: inline-flex; align-items: center; gap: 6px; }
+.nt-trash-row button svg { width: 14px; height: 14px; }
+.nt-trash-empty { margin: 0; padding: var(--sp-8) var(--sp-5); font-size: var(--text-sm); color: var(--text-faint); text-align: center; }
+
+/* ---- The Markdown editor is missing ------------------------------------- */
+.nt-missing { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-2); padding: var(--sp-5); text-align: center; background: var(--bg); color: var(--text); }
+.nt-missing > span { color: var(--text-faint); }
+.nt-missing svg { width: 32px; height: 32px; }
+.nt-missing-title { margin: 0; font-size: var(--text-lg); font-weight: 600; }
+.nt-missing-text { margin: 0 0 var(--sp-2); max-width: 34rem; font-size: var(--text-sm); color: var(--text-dim); }
+
+/* ---- Menu (right click, long press, ⋯) ---------------------------------- */
+.nt-menu { position: fixed; z-index: 120; min-width: 14rem; max-width: calc(100vw - 16px); padding: var(--sp-1); border: 1px solid var(--border); border-radius: var(--card-radius); background: var(--bg-raised); box-shadow: var(--shadow-md); }
+.nt-menu button.nt-menu-item { width: 100%; justify-content: flex-start; height: var(--nav-h); min-height: 0; display: flex; align-items: center; gap: var(--sp-2); padding: 0 var(--sp-3); border: 0; border-radius: var(--ctl-radius); background: none; box-shadow: none; color: var(--text); font-size: var(--text-sm); font-weight: 400; text-align: left; transform: none; }
+.nt-menu button.nt-menu-item:is(:hover, :focus-visible) { background: color-mix(in srgb, var(--text) 7%, transparent); outline: none; box-shadow: none; }
+.nt-menu button.nt-menu-item.is-danger { color: var(--risk-high); }
+.nt-menu button.nt-menu-item.is-checked .nt-menu-check { visibility: visible; }
+.nt-menu-item svg { width: 16px; height: 16px; flex-shrink: 0; }
+.nt-menu-item .nt-menu-check { margin-left: auto; visibility: hidden; color: var(--accent); }
+.nt-menu-sep { height: 1px; margin: var(--sp-1) 0; background: var(--border); }
+
+/* ---- The windows: "Move to…", "Ask an agent" ----------------------------- */
+.nt-backdrop { z-index: 1000; }
+.nt-pick { display: flex; flex-direction: column; gap: 1px; margin: 0 calc(-1 * var(--sp-2)); }
+.nt-pick .nt-row { margin: 0; cursor: pointer; }
+.nt-pick button.nt-row { width: 100%; justify-content: flex-start; border: 0; background: none; box-shadow: none; font-weight: 400; text-align: left; transform: none; }
+.nt-pick button.nt-row:hover:not(:disabled) { background: color-mix(in srgb, var(--text) 7%, transparent); box-shadow: none; }
+.nt-pick button.nt-row:disabled { opacity: 0.5; cursor: default; }
+.nt-ask .option-row { padding: var(--sp-2) 0; }
+.nt-ask .option-title { font-size: var(--text-sm); font-weight: 600; }
+.nt-ask .option-note { font-size: var(--text-xs); color: var(--text-faint); }
+.nt-ask .option-action select { width: 11rem; max-width: 100%; height: var(--ctl-h); font-size: var(--text-sm); }
+.nt-ask .seg-switch-btn:disabled { opacity: 0.45; cursor: default; }
+.nt-field { display: flex; flex-direction: column; gap: var(--sp-1); }
+.nt-field-title { font-size: var(--text-sm); font-weight: 600; }
+.nt-ask textarea { width: 100%; min-height: 5.5rem; resize: vertical; font-family: inherit; font-size: var(--text-sm); line-height: 1.5; }
+.nt-attach { display: flex; align-items: center; gap: var(--sp-2); margin: 0; padding: var(--sp-2) var(--sp-3); border: 1px solid var(--border); border-radius: var(--ctl-radius); background: var(--bg); font-size: var(--text-xs); color: var(--text-dim); }
+.nt-attach .nt-icon { color: var(--text-dim); }
+.nt-attach b { color: var(--text); font-weight: 600; }
+.nt-ask .modal-foot button { display: inline-flex; align-items: center; gap: 6px; }
+.nt-ask .modal-foot button svg { width: 14px; height: 14px; }
+
+/* ---- Phone: one part at a time ------------------------------------------ */
+@media (max-width: 720px) {
+  .nt-head.page-bar { padding: 0 var(--sp-2); }
+  .nt-head .nt-fold,
+  .nt-handle { display: none; }
+  .nt-col { flex: 1 1 auto; width: 100%; border-right: 0; }
+  .nt-view[data-pane="column"] .nt-note,
+  .nt-view[data-pane="note"] .nt-col { display: none; }
+  .nt-view[data-pane="note"] .nt-head .nt-back { display: inline-flex; }
+  .nt-view[data-pane="note"] .nt-head .page-bar-icon { display: none; }
+  /* The bar holds what the part shown needs, nothing else. */
+  .nt-view[data-pane="column"] :is(.nt-crumbs, #nt-state, #nt-note-menu, #nt-ask, #nt-empty-trash) { display: none; }
+  .nt-view[data-pane="note"] :is(.nt-search, #nt-new-note) { display: none; }
+  .nt-search { flex: 1 1 auto; margin-left: 0; }
+  .nt-search input,
+  .nt-search input:focus { font-size: max(16px, var(--text-sm)); }
+  .nt-row { font-size: var(--text-md); }
+  .nt-view input.nt-title,
+  .nt-view input.nt-title:focus { padding: var(--sp-3) var(--sp-4) var(--sp-2); font-size: max(16px, var(--text-2xl)); }
+  .nt-doc { padding: var(--sp-3) var(--sp-4) var(--sp-8); }
+  .nt-trash-row { padding: var(--sp-2) var(--sp-4); flex-wrap: wrap; }
+  .nt-ask textarea { font-size: max(16px, var(--text-sm)); }
+}

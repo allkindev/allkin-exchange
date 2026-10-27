@@ -1,0 +1,54 @@
+{
+  "name": "Bloc-notes",
+  "version": "1.0.6",
+  "description": "Des notes rangées par dossiers, écrites dans l'éditeur markdown d'Allkin : un arbre de dossiers et de notes, recherche, épingles, corbeille, images, et « Demander à un agent » pour envoyer une note dans une conversation. Chaque note est un fichier .md du dossier partagé, que les agents lisent et écrivent aussi.",
+  "author": "Allkin",
+  "requires": [
+    "markdown-editor"
+  ],
+  "permissions": [
+    {
+      "id": "interface",
+      "reason": "Ajoute le bloc-notes à la page d'Allkin : son onglet et son entrée dans la liste des intégrations."
+    }
+  ],
+  "ui": {
+    "apiVersion": 1,
+    "provides": [
+      "notes"
+    ],
+    "html": [
+      "view.html"
+    ],
+    "styles": [
+      "notes.css"
+    ],
+    "scripts": [
+      "locales.js",
+      "notes.js"
+    ]
+  },
+  "locales": {
+    "en": {
+      "name": "Notes",
+      "description": "Notes filed in folders, written in Allkin's Markdown editor: a tree of folders and notes, search, pins, bin, images, and “Ask an agent” to send a note into a conversation. Each note is a .md file of the shared folder, which the agents read and write too.",
+      "permissions": {
+        "interface": "Adds the notepad to the Allkin page: its tab and its entry in the list of integrations."
+      }
+    },
+    "es": {
+      "name": "Bloc de notas",
+      "description": "Notas ordenadas en carpetas, escritas en el editor Markdown de Allkin: un árbol de carpetas y notas, búsqueda, notas fijadas, papelera, imágenes y «Preguntar a un agente» para enviar una nota a una conversación. Cada nota es un archivo .md de la carpeta compartida, que los agentes también leen y escriben.",
+      "permissions": {
+        "interface": "Añade el bloc de notas a la página de Allkin: su pestaña y su entrada en la lista de integraciones."
+      }
+    },
+    "de": {
+      "name": "Notizen",
+      "description": "Notizen in Ordnern, geschrieben im Markdown-Editor von Allkin: ein Baum aus Ordnern und Notizen, Suche, angeheftete Notizen, Papierkorb, Bilder und „Einen Agenten fragen“, um eine Notiz in eine Unterhaltung zu schicken. Jede Notiz ist eine .md-Datei im gemeinsamen Ordner, die auch die Agenten lesen und schreiben.",
+      "permissions": {
+        "interface": "Fügt der Allkin-Seite den Notizblock hinzu: seinen Tab und seinen Eintrag in der Integrationsliste."
+      }
+    }
+  }
+}

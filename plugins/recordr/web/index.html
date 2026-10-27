@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Recordr</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- One sprite for every icon: Phosphor glyphs, light weight (MIT), like the rest of Allkin. -->
+<svg class="rc-sprite" aria-hidden="true">
+  <symbol id="i-microphone" viewBox="0 0 256 256"><path d="M128,174a46.06,46.06,0,0,0,46-46V64a46,46,0,0,0-92,0v64A46.06,46.06,0,0,0,128,174ZM94,64a34,34,0,0,1,68,0v64a34,34,0,0,1-68,0Zm40,141.75V240a6,6,0,0,1-12,0V205.75A78.09,78.09,0,0,1,50,128a6,6,0,0,1,12,0,66,66,0,0,0,132,0,6,6,0,0,1,12,0A78.09,78.09,0,0,1,134,205.75Z"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 256 256"><path d="M200,42H56A14,14,0,0,0,42,56V200a14,14,0,0,0,14,14H200a14,14,0,0,0,14-14V56A14,14,0,0,0,200,42Zm2,158a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V56a2,2,0,0,1,2-2H200a2,2,0,0,1,2,2Z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 256 256"><path d="M200,34H160a14,14,0,0,0-14,14V208a14,14,0,0,0,14,14h40a14,14,0,0,0,14-14V48A14,14,0,0,0,200,34Zm2,174a2,2,0,0,1-2,2H160a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2h40a2,2,0,0,1,2,2ZM96,34H56A14,14,0,0,0,42,48V208a14,14,0,0,0,14,14H96a14,14,0,0,0,14-14V48A14,14,0,0,0,96,34Zm2,174a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2H96a2,2,0,0,1,2,2Z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 256 256"><path d="M231.36,116.19,87.28,28.06a14,14,0,0,0-14.18-.27A13.69,13.69,0,0,0,66,39.87V216.13a13.69,13.69,0,0,0,7.1,12.08,14,14,0,0,0,14.18-.27l144.08-88.13a13.82,13.82,0,0,0,0-23.62Zm-6.26,13.38L81,217.7a2,2,0,0,1-2.06,0,1.78,1.78,0,0,1-1-1.61V39.87a1.78,1.78,0,0,1,1-1.61A2.06,2.06,0,0,1,80,38a2,2,0,0,1,1,.31L225.1,126.43a1.82,1.82,0,0,1,0,3.14Z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 256 256"><path d="M112.6,158.43a58,58,0,1,0-57.2,0A93.83,93.83,0,0,0,5.21,196.72a6,6,0,0,0,10.05,6.56,82,82,0,0,1,137.48,0,6,6,0,0,0,10-6.56A93.83,93.83,0,0,0,112.6,158.43ZM38,108a46,46,0,1,1,46,46A46.06,46.06,0,0,1,38,108Zm211,97a6,6,0,0,1-8.3-1.74A81.8,81.8,0,0,0,172,166a6,6,0,0,1,0-12,46,46,0,1,0-17.08-88.73,6,6,0,1,1-4.46-11.14,58,58,0,0,1,50.14,104.3,93.83,93.83,0,0,1,50.19,38.29A6,6,0,0,1,249,205Z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 256 256"><path d="M216,34H88a6,6,0,0,0-6,6V82H40a6,6,0,0,0-6,6V216a6,6,0,0,0,6,6H168a6,6,0,0,0,6-6V174h42a6,6,0,0,0,6-6V40A6,6,0,0,0,216,34ZM162,210H46V94H162Zm48-48H174V88a6,6,0,0,0-6-6H94V46H210Z"/></symbol>
+  <symbol id="i-download-simple" viewBox="0 0 256 256"><path d="M222,144v64a6,6,0,0,1-6,6H40a6,6,0,0,1-6-6V144a6,6,0,0,1,12,0v58H210V144a6,6,0,0,1,12,0Zm-98.24,4.24a6,6,0,0,0,8.48,0l40-40a6,6,0,0,0-8.48-8.48L134,129.51V32a6,6,0,0,0-12,0v97.51L92.24,99.76a6,6,0,0,0-8.48,8.48Z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 256 256"><path d="M222,128a6,6,0,0,1-6,6H134v82a6,6,0,0,1-12,0V134H40a6,6,0,0,1,0-12h82V40a6,6,0,0,1,12,0v82h82A6,6,0,0,1,222,128Z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 256 256"><path d="M216,50H174V40a22,22,0,0,0-22-22H104A22,22,0,0,0,82,40V50H40a6,6,0,0,0,0,12H50V208a14,14,0,0,0,14,14H192a14,14,0,0,0,14-14V62h10a6,6,0,0,0,0-12ZM94,40a10,10,0,0,1,10-10h48a10,10,0,0,1,10,10V50H94ZM194,208a2,2,0,0,1-2,2H64a2,2,0,0,1-2-2V62H194ZM110,104v64a6,6,0,0,1-12,0V104a6,6,0,0,1,12,0Zm48,0v64a6,6,0,0,1-12,0V104a6,6,0,0,1,12,0Z"/></symbol>
+  <symbol id="i-magnifying-glass" viewBox="0 0 256 256"><path d="M228.24,219.76l-51.38-51.38a86.15,86.15,0,1,0-8.48,8.48l51.38,51.38a6,6,0,0,0,8.48-8.48ZM38,112a74,74,0,1,1,74,74A74.09,74.09,0,0,1,38,112Z"/></symbol>
+  <symbol id="i-arrow-down" viewBox="0 0 256 256"><path d="M204.24,148.24l-72,72a6,6,0,0,1-8.48,0l-72-72a6,6,0,0,1,8.48-8.48L122,201.51V40a6,6,0,0,1,12,0V201.51l61.76-61.75a6,6,0,0,1,8.48,8.48Z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 256 256"><path d="M204.24,195.76a6,6,0,1,1-8.48,8.48L128,136.49,60.24,204.24a6,6,0,0,1-8.48-8.48L119.51,128,51.76,60.24a6,6,0,0,1,8.48-8.48L128,119.51l67.76-67.75a6,6,0,0,1,8.48,8.48L136.49,128Z"/></symbol>
+  <symbol id="i-dots-three" viewBox="0 0 256 256"><path d="M138,128a10,10,0,1,1-10-10A10,10,0,0,1,138,128ZM60,118a10,10,0,1,0,10,10A10,10,0,0,0,60,118Zm136,0a10,10,0,1,0,10,10A10,10,0,0,0,196,118Z"/></symbol>
+  <symbol id="i-sidebar-simple" viewBox="0 0 256 256"><path d="M216,42H40A14,14,0,0,0,26,56V200a14,14,0,0,0,14,14H216a14,14,0,0,0,14-14V56A14,14,0,0,0,216,42ZM38,200V56a2,2,0,0,1,2-2H82V202H40A2,2,0,0,1,38,200Zm180,0a2,2,0,0,1-2,2H94V54H216a2,2,0,0,1,2,2Z"/></symbol>
+  <symbol id="i-caret-up" viewBox="0 0 256 256"><path d="M212.24,164.24a6,6,0,0,1-8.48,0L128,88.49,52.24,164.24a6,6,0,0,1-8.48-8.48l80-80a6,6,0,0,1,8.48,0l80,80A6,6,0,0,1,212.24,164.24Z"/></symbol>
+  <symbol id="i-caret-down" viewBox="0 0 256 256"><path d="M212.24,100.24l-80,80a6,6,0,0,1-8.48,0l-80-80a6,6,0,0,1,8.48-8.48L128,167.51l75.76-75.75a6,6,0,0,1,8.48,8.48Z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 256 256"><path d="M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm62-90a6,6,0,0,1-6,6H128a6,6,0,0,1-6-6V72a6,6,0,0,1,12,0v50h50A6,6,0,0,1,190,128Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 256 256"><path d="M228.24,76.24l-128,128a6,6,0,0,1-8.48,0l-56-56a6,6,0,0,1,8.48-8.48L96,191.51,219.76,67.76a6,6,0,0,1,8.48,8.48Z"/></symbol>
+  <symbol id="i-markdown-logo" viewBox="0 0 256 256"><path d="M232,50H24A14,14,0,0,0,10,64V192a14,14,0,0,0,14,14H232a14,14,0,0,0,14-14V64A14,14,0,0,0,232,50Zm2,142a2,2,0,0,1-2,2H24a2,2,0,0,1-2-2V64a2,2,0,0,1,2-2H232a2,2,0,0,1,2,2ZM126,104v48a6,6,0,0,1-12,0V118.49L92.24,140.24a6,6,0,0,1-8.48,0L62,118.49V152a6,6,0,0,1-12,0V104a6,6,0,0,1,10.24-4.24L88,127.51l27.76-27.75A6,6,0,0,1,126,104Zm78.24,19.76a6,6,0,0,1,0,8.48l-24,24a6,6,0,0,1-8.48,0l-24-24a6,6,0,1,1,8.48-8.48L170,137.51V104a6,6,0,0,1,12,0v33.51l13.76-13.75A6,6,0,0,1,204.24,123.76Z"/></symbol>
+  <symbol id="i-file-text" viewBox="0 0 256 256"><path d="M212.24,83.76l-56-56A6,6,0,0,0,152,26H56A14,14,0,0,0,42,40V216a14,14,0,0,0,14,14H200a14,14,0,0,0,14-14V88A6,6,0,0,0,212.24,83.76ZM158,46.48,193.52,82H158ZM200,218H56a2,2,0,0,1-2-2V40a2,2,0,0,1,2-2h90V88a6,6,0,0,0,6,6h50V216A2,2,0,0,1,200,218Zm-34-82a6,6,0,0,1-6,6H96a6,6,0,0,1,0-12h64A6,6,0,0,1,166,136Zm0,32a6,6,0,0,1-6,6H96a6,6,0,0,1,0-12h64A6,6,0,0,1,166,168Z"/></symbol>
+  <symbol id="i-closed-captioning" viewBox="0 0 256 256"><path d="M224,50H32A14,14,0,0,0,18,64V192a14,14,0,0,0,14,14H224a14,14,0,0,0,14-14V64A14,14,0,0,0,224,50Zm2,142a2,2,0,0,1-2,2H32a2,2,0,0,1-2-2V64a2,2,0,0,1,2-2H224a2,2,0,0,1,2,2ZM117.19,152.71a6,6,0,0,1-2.19,8.2,38,38,0,1,1,0-65.82,6,6,0,1,1-6,10.38,26,26,0,1,0,0,45.05A6,6,0,0,1,117.19,152.71Zm80,0a6,6,0,0,1-2.19,8.2,38,38,0,1,1,0-65.82,6,6,0,1,1-6,10.38,26,26,0,1,0,0,45.05A6,6,0,0,1,197.19,152.71Z"/></symbol>
+  <symbol id="i-waveform" viewBox="0 0 256 256"><path d="M54,96v64a6,6,0,0,1-12,0V96a6,6,0,0,1,12,0ZM88,26a6,6,0,0,0-6,6V224a6,6,0,0,0,12,0V32A6,6,0,0,0,88,26Zm40,32a6,6,0,0,0-6,6V192a6,6,0,0,0,12,0V64A6,6,0,0,0,128,58Zm40,32a6,6,0,0,0-6,6v64a6,6,0,0,0,12,0V96A6,6,0,0,0,168,90Zm40-16a6,6,0,0,0-6,6v96a6,6,0,0,0,12,0V80A6,6,0,0,0,208,74Z"/></symbol>
+  <symbol id="i-note-pencil" viewBox="0 0 256 256"><path d="M228.24,59.76l-32-32a6,6,0,0,0-8.48,0l-96,96A6,6,0,0,0,90,128v32a6,6,0,0,0,6,6h32a6,6,0,0,0,4.24-1.76l96-96A6,6,0,0,0,228.24,59.76ZM125.51,154H102V130.49l66-66L191.51,88ZM200,79.51,176.49,56,192,40.49,215.51,64ZM222,128v80a14,14,0,0,1-14,14H48a14,14,0,0,1-14-14V48A14,14,0,0,1,48,34h80a6,6,0,0,1,0,12H48a2,2,0,0,0-2,2V208a2,2,0,0,0,2,2H208a2,2,0,0,0,2-2V128a6,6,0,0,1,12,0Z"/></symbol>
+</svg>
+
+<div class="rc-app" id="app">
+  <!-- Narrow screens: a panel opens over the page, a click beside it closes it. -->
+  <div class="rc-scrim" id="scrim"></div>
+
+  <aside class="rc-side rc-history-panel" id="history-panel">
+    <header class="rc-side-head">
+      <h2 class="rc-side-title" data-i18n="history.title"></h2>
+      <button type="button" class="rc-tool" id="new" data-i18n-aria-label="action.new" data-i18n-title="action.new"><svg><use href="#i-plus"/></svg></button>
+      <button type="button" class="rc-tool rc-side-close" data-close="history" data-i18n-aria-label="action.close"><svg><use href="#i-x"/></svg></button>
+    </header>
+    <label class="rc-search">
+      <svg><use href="#i-magnifying-glass"/></svg>
+      <input type="search" id="history-search" autocomplete="off" data-i18n-placeholder="history.search" data-i18n-aria-label="history.search">
+    </label>
+    <div class="rc-history" id="history"></div>
+    <p class="rc-side-empty hidden" id="history-empty"></p>
+  </aside>
+
+  <main class="rc-main">
+    <!-- The one bar of the page: what is shown, then its tools. -->
+    <header class="rc-bar">
+      <button type="button" class="rc-tool" id="history-toggle" data-i18n-aria-label="history.title" data-i18n-title="history.title"><svg><use href="#i-sidebar-simple"/></svg></button>
+      <div class="rc-heading">
+        <input type="text" class="rc-title" id="title" maxlength="200" autocomplete="off" data-i18n-placeholder="title.placeholder" data-i18n-aria-label="title.label">
+        <span class="rc-meta" id="meta"></span>
+      </div>
+      <div class="rc-bar-actions">
+        <button type="button" class="rc-tool" id="find-toggle" data-i18n-aria-label="find.title" data-i18n-title="find.title"><svg><use href="#i-magnifying-glass"/></svg></button>
+        <button type="button" class="rc-tool" id="times-toggle" aria-pressed="true" data-i18n-aria-label="times.toggle" data-i18n-title="times.toggle"><svg><use href="#i-clock"/></svg></button>
+        <button type="button" class="rc-tool rc-labelled" id="copy"><svg><use href="#i-copy"/></svg><span data-i18n="action.copy"></span></button>
+        <button type="button" class="rc-tool rc-labelled" id="export" aria-haspopup="menu"><svg><use href="#i-download-simple"/></svg><span data-i18n="action.export"></span></button>
+        <button type="button" class="rc-tool" id="more" aria-haspopup="menu" data-i18n-aria-label="action.more" data-i18n-title="action.more"><svg><use href="#i-dots-three"/></svg></button>
+        <button type="button" class="rc-tool" id="speakers-toggle" data-i18n-aria-label="speakers.title" data-i18n-title="speakers.title"><svg><use href="#i-users"/></svg></button>
+      </div>
+    </header>
+
+    <!-- Search in the transcript shown. -->
+    <div class="rc-find hidden" id="find" role="search">
+      <svg><use href="#i-magnifying-glass"/></svg>
+      <input type="search" id="find-input" autocomplete="off" spellcheck="false" data-i18n-placeholder="find.placeholder" data-i18n-aria-label="find.placeholder">
+      <span class="rc-find-count" id="find-count"></span>
+      <button type="button" class="rc-tool" id="find-prev" data-i18n-aria-label="find.previous" data-i18n-title="find.previous"><svg><use href="#i-caret-up"/></svg></button>
+      <button type="button" class="rc-tool" id="find-next" data-i18n-aria-label="find.next" data-i18n-title="find.next"><svg><use href="#i-caret-down"/></svg></button>
+      <button type="button" class="rc-tool" id="find-close" data-i18n-aria-label="action.close" data-i18n-title="action.close"><svg><use href="#i-x"/></svg></button>
+    </div>
+
+    <p class="rc-notice hidden" id="notice" role="alert"></p>
+
+    <div class="rc-stage">
+      <section class="rc-transcript" id="transcript" aria-live="polite"></section>
+      <div class="rc-empty" id="empty">
+        <span class="rc-empty-icon"><svg><use href="#i-waveform"/></svg></span>
+        <h2 data-i18n="empty.title"></h2>
+        <p class="rc-empty-lead" data-i18n="empty.lead"></p>
+        <ul class="rc-empty-points">
+          <li><svg><use href="#i-users"/></svg><span data-i18n="empty.rename"></span></li>
+          <li><svg><use href="#i-note-pencil"/></svg><span data-i18n="empty.edit"></span></li>
+          <li><svg><use href="#i-check"/></svg><span data-i18n="empty.background"></span></li>
+        </ul>
+      </div>
+      <button type="button" class="rc-latest hidden" id="latest"><svg><use href="#i-arrow-down"/></svg><span data-i18n="action.latest"></span></button>
+    </div>
+
+    <!-- The recorder: its state and the sound heard, the transport, the clock. -->
+    <footer class="rc-dock" id="dock" data-phase="idle">
+      <div class="rc-dock-side">
+        <span class="rc-status" id="status" role="status"><i class="rc-status-dot"></i><span id="status-text"></span></span>
+        <canvas class="rc-wave" id="wave" aria-hidden="true"></canvas>
+      </div>
+      <div class="rc-transport">
+        <button type="button" class="rc-round hidden" id="pause"><svg><use href="#i-pause"/></svg></button>
+        <button type="button" class="rc-record" id="record"><svg><use href="#i-microphone"/></svg><span></span></button>
+      </div>
+      <div class="rc-dock-side rc-dock-end">
+        <span class="rc-saved" id="saved"></span>
+        <time class="rc-clock" id="clock">00:00</time>
+      </div>
+    </footer>
+  </main>
+
+  <aside class="rc-side rc-speakers-panel" id="speakers-panel">
+    <header class="rc-side-head">
+      <h2 class="rc-side-title" data-i18n="speakers.title"></h2>
+      <button type="button" class="rc-tool rc-side-close" data-close="speakers" data-i18n-aria-label="action.close"><svg><use href="#i-x"/></svg></button>
+    </header>
+    <!-- Who spoke how much, at a glance. -->
+    <div class="rc-share hidden" id="share" aria-hidden="true"></div>
+    <ul class="rc-speakers" id="speakers"></ul>
+    <p class="rc-side-empty" id="speakers-empty" data-i18n="speakers.empty"></p>
+    <h2 class="rc-side-title rc-side-sub" data-i18n="details.title"></h2>
+    <dl class="rc-details" id="details"></dl>
+  </aside>
+</div>
+
+<!-- Export formats, and the other actions on the transcript. -->
+<div class="rc-menu hidden" id="menu" role="menu"></div>
+<div class="rc-toast" id="toast" role="status" aria-live="polite"></div>
+<script src="locales.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
