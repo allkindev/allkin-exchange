@@ -32,18 +32,14 @@ onglet d'Allkin. Il a longtemps été publié ici sous le nom `bonjour`.
 ```
 plugins/bonjour/
 ├── plugin.json
-├── validation.json
 ├── README.md
 ├── icon.svg
 ├── package.json
 └── server.js
 ```
 
-`validation.json` dit si le propriétaire d'Allkin a vérifié l'intégration : `{ "status": "pending" }`
-au départ — tout le monde peut l'installer, sans garantie de fonctionnement, et l'interface
-l'affiche « En cours de validation » — puis `{ "status": "validated", "date": "2026-10-01",
-"by": "Tony" }` une fois vérifié. Fichier absent = en attente. Seul le propriétaire le passe à
-`validated`.
+Pas de fichier de validation (depuis le 27/10/2026) : ce qui est dans l'Exchange y a été publié
+par le superviseur du site Allkin, et rien n'y arrive autrement.
 
 ### `plugin.json`
 
@@ -175,7 +171,7 @@ reste utile pour tester le catalogue lui-même, tel qu'il sera publié.
 1. Servir ce dépôt sur la machine :
 
    ```bash
-   cd allkin-tools-experimental
+   cd allkin-exchange
    node scripts/catalogue.mjs                          # régénère catalogue.json
    python3 -m http.server 8765 --bind 127.0.0.1
    ```
@@ -203,23 +199,21 @@ correspond plus.
 
 ## 3. Publier
 
-Une nouvelle intégration se publie dans le dépôt **expérimental**
-([allkin-tools-experimental](https://github.com/allkindev/allkin-tools-experimental)), avec
-`validation.json` à `{ "status": "pending" }`. Il y reste tant que le propriétaire d'Allkin ne l'a
-pas validé ; il passe alors dans le dépôt stable, où `validation.json` dit `validated`. Chaque
-dépôt a son `catalogue.json`, et son `scripts/catalogue.mjs` refuse une intégration qui n'est pas à sa
-place.
+Une intégration se publie **depuis l'espace membre du site Allkin** : vous y déposez son dossier,
+le superviseur le lit et décide ; s'il publie, le site l'écrit dans ce dépôt
+([allkin-exchange](https://github.com/allkindev/allkin-exchange)), régénère et signe le catalogue, et
+pousse. Une mise à jour par jour et par publication au plus. Rien n'arrive dans le dépôt autrement.
+
+Avant de déposer, vérifiez votre dossier avec le script du dépôt :
 
 ```bash
 node scripts/catalogue.mjs --check   # doit dire « à jour »
-git add -A && git commit && git push
 ```
 
-Côté propriétaire, deux scripts font tout :
+Côté propriétaire, un script publie ce qu'il change lui-même :
 
 ```bash
-~/allkin-scripts/git_validate_tool.sh mon-plugin  # expérimental → stable, validation.json mis à « validated »
-~/allkin-scripts/git_commit_tools.sh              # versions N+1, catalogues, commit et push des deux dépôts
+~/allkin-scripts/git_commit_tools.sh              # versions N+1, catalogue, commit et push
 ```
 
 - **Incrémenter `version`** dans `plugin.json` à chaque changement : c'est ce qui fait apparaître
@@ -238,13 +232,12 @@ Côté propriétaire, deux scripts font tout :
 Une **compétence** est un savoir-faire qu'un agent charge à la demande : un dossier
 `skills/<id>/` avec un `SKILL.md` au format ouvert « Agent Skills » (en-tête `name` / `description`,
 puis la procédure en anglais), un `skill.json` propre à Allkin (`version` en `1.0.N`, `author`,
-`icon`, `locales` pour le nom et la description en en/fr/es/de), `README.md` plus `README-FR/ES/DE.md`,
-et `validation.json` à `pending`. Le `name` de l'en-tête est **le nom du dossier**. Une compétence
+`icon`, `locales` pour le nom et la description en en/fr/es/de), `README.md` plus `README-FR/ES/DE.md`.
+Le `name` de l'en-tête est **le nom du dossier**. Une compétence
 n'accorde aucun droit : `allowed-tools` est ignoré. Le standard complet est
 `plugins/creator/standard/SKILL-STANDARD.md` dans le dépôt expérimental ; `scripts/catalogue.mjs`
-la liste dans `catalogue.json` sous `skills`, avec ses fichiers et leurs empreintes, et
-`~/allkin-scripts/git_validate_tool.sh --skill <id>` la fait passer en stable. Dans Allkin, la page
-**Compétences** l'installe, et la page d'un agent (section Portée) la lui donne.
+la liste dans `catalogue.json` sous `skills`, avec ses fichiers et leurs empreintes. Dans Allkin,
+la page **Exchange** l'installe, et la page d'un agent (section Portée) la lui donne.
 
 ---
 
