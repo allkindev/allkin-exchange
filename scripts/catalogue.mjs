@@ -72,14 +72,18 @@ const MAX_FILE_BYTES = 20 * 1024 * 1024;
 
 /** When the entry last changed: the date of the last commit that touched its
  *  folder (what the Exchange page shows as "updated", and sorts the latest
- *  by). Absent for a folder not committed yet, or outside git. */
+ *  by). A folder not committed yet — one the site's supervision just wrote,
+ *  before its commit — takes the newest of its files; outside git, the same. */
 function updatedAt(dir) {
   try {
     const out = execFileSync("git", ["log", "-1", "--format=%cI", "--", dir], { cwd: ROOT, encoding: "utf-8", stdio: ["ignore", "pipe", "ignore"] }).trim();
-    return out || undefined;
+    if (out) return out;
   } catch {
-    return undefined;
+    // Not a git checkout: the files say.
   }
+  let newest = 0;
+  for (const { st } of listFiles(dir)) newest = Math.max(newest, st.mtimeMs);
+  return newest ? new Date(newest).toISOString() : undefined;
 }
 const stamp = (dir) => (updatedAt(dir) ? { updatedAt: updatedAt(dir) } : {});
 
